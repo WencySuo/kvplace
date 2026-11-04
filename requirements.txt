@@ -1,0 +1,8 @@
+# CPU-only (Stage A, dry-run predictions, plots, reference tests)
+numpy
+matplotlib
+pytest
+# GPU (Stages B, C, tier 0); install per the GH200 container's torch build
+# torch
+# flashinfer-python
+# transformers
