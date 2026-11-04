@@ -1,0 +1,4 @@
+{
+  "qwen3-8b": {"repo": "Qwen/Qwen3-8B", "sha": "b968826d9c46dd6066d109eabc6255188de91218", "fetched": "2026-11-03"},
+  "qwen3-8b-dflash-b16": {"repo": "z-lab/Qwen3-8B-DFlash-b16", "sha": "9b41424b7109f9c5413454f481b09a82b85333f4", "fetched": "2026-11-03"}
+}
