@@ -1,0 +1,99 @@
+
+=== profile  Sun 04:30 ===
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6600.64it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6331.35it/s]
+USDT:2026-11-15 04:30:47 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:30:48 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:30:53 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:30:53 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:00 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:02 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:12 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:12 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:16 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:17 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:23 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:23 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:27 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:29 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:39 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:40 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:46 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:47 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:54 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:31:54 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:31:59 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:01 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:32:12 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:13 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   61.71 ms clean | step   75.07 ms profiled, GPU  10.10 ms (13.5% busy), memcpy  0.01 ms, cmdbuf-full  1.74 ms,   2255 launches, malloc 0.0 free 0.0 sync 1.0/step
+        2.235 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        2.002 ms/step  x 108.0  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+        1.305 ms/step  x  72.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonym
+        0.870 ms/step  x  36.0  cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_35_16x128x128_1x4x1_cga1x1
+        0.442 ms/step  x 216.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        0.396 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_splitK_TNT
+hbm       R= 0 bs=16: tpot   88.86 ms clean | step   96.50 ms profiled, GPU  44.71 ms (46.3% busy), memcpy  0.04 ms, cmdbuf-full  1.18 ms,   2778 launches, malloc 0.0 free 0.0 sync 1.0/step
+       15.026 ms/step  x  41.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.262 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        8.595 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.283 ms/step  x  41.0  nvjet_sm90_tst_64x16_64x16_4x1_v_bz_TNT
+        1.084 ms/step  x  35.1  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        0.993 ms/step  x  53.6  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+ours      R=36 bs= 1: tpot   47.97 ms clean | step   75.95 ms profiled, GPU  10.21 ms (13.4% busy), memcpy  0.01 ms, cmdbuf-full  2.64 ms,   2254 launches, malloc 0.0 free 0.0 sync 1.0/step
+        2.226 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        1.996 ms/step  x 108.0  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+        1.306 ms/step  x  72.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonym
+        0.872 ms/step  x  36.0  cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_35_16x128x128_1x4x1_cga1x1
+        0.439 ms/step  x 216.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        0.395 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_splitK_TNT
+ours      R=36 bs=16: tpot   47.30 ms clean | step   97.03 ms profiled, GPU  45.04 ms (46.4% busy), memcpy  0.04 ms, cmdbuf-full  1.57 ms,   2778 launches, malloc 0.0 free 0.0 sync 1.0/step
+       15.127 ms/step  x  41.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.276 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        8.623 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.286 ms/step  x  41.0  nvjet_sm90_tst_64x16_64x16_4x1_v_bz_TNT
+        1.084 ms/step  x  35.1  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        0.993 ms/step  x  53.6  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+ours      R= 0 bs= 1: tpot   80.90 ms clean | step   87.00 ms profiled, GPU   9.10 ms (10.5% busy), memcpy  6.54 ms, cmdbuf-full  1.48 ms,   2326 launches, malloc 0.0 free 0.0 sync 1.0/step
+        6.529 ms/step  x  72.0  Memcpy HtoD (Pinned -> Device)
+        2.206 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        1.929 ms/step  x 108.0  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+        0.826 ms/step  x  36.0  cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_35_16x128x128_1x4x1_cga1x1
+        0.436 ms/step  x 216.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        0.394 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_splitK_TNT
+ours      R= 0 bs=16: tpot   52.86 ms clean | step  108.75 ms profiled, GPU  39.40 ms (36.2% busy), memcpy  6.57 ms, cmdbuf-full  0.65 ms,   2850 launches, malloc 0.0 free 0.0 sync 1.0/step
+       14.989 ms/step  x  41.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       12.144 ms/step  x 144.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        6.530 ms/step  x  72.0  Memcpy HtoD (Pinned -> Device)
+        1.442 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.290 ms/step  x  41.0  nvjet_sm90_tst_64x16_64x16_4x1_v_bz_TNT
+        1.084 ms/step  x  35.1  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+USDT:2026-11-15 04:32:18 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:21 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:32:28 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:30 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:32:35 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:38 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 04:32:49 10209:10209 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 04:32:51 10209:10209 SyncActivityProfilerHandler.cpp:59] profiler_stop
+zerocopy  R= 0 bs= 1: tpot   49.62 ms clean | step   80.09 ms profiled, GPU  14.75 ms (18.4% busy), memcpy  0.01 ms, cmdbuf-full -0.02 ms,   2326 launches, malloc 0.0 free 0.0 sync 1.0/step
+        6.656 ms/step  x  36.0  cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_35_16x128x128_1x4x1_cga1x1
+        2.225 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        1.932 ms/step  x 108.0  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+        0.436 ms/step  x 216.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        0.391 ms/step  x  72.0  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_splitK_TNT
+        0.345 ms/step  x 146.0  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+zerocopy  R= 0 bs=16: tpot   49.42 ms clean | step  101.14 ms profiled, GPU  56.44 ms (55.8% busy), memcpy  0.04 ms, cmdbuf-full  0.78 ms,   2850 launches, malloc 0.0 free 0.0 sync 1.0/step
+       29.265 ms/step  x 144.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       14.923 ms/step  x  41.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+        1.426 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.291 ms/step  x  41.0  nvjet_sm90_tst_64x16_64x16_4x1_v_bz_TNT
+        1.084 ms/step  x  35.1  nvjet_sm90_tst_64x8_64x16_4x1_v_bz_TNT
+        0.997 ms/step  x  53.6  nvjet_sm90_tst_64x8_64x16_2x1_v_bz_splitK_TNT
+=== profile ok in 2 min
+
+=== summarize  Sun 04:32 ===
+wrote results/followups_summary.md
+=== summarize ok in 0 min
+All stages attempted, rc=0. Log: logs/followups_1115_0430.log

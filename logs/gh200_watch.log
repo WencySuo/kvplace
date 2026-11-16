@@ -1,0 +1,37 @@
+2026-11-14 21:29:39 watchdog start (poll 300s, stall threshold 3600s)
+2026-11-14 21:29:40 status='SETUP_BEGIN 2026-11-15T02:28:42Z' tmux=up done=[] log=setup.log size=83 gpu='0 %, 0 MiB' errs=0 | name, memory.total [MiB], driver_version NVIDIA GH200 480GB, 97871 MiB, 580.105.08 
+2026-11-14 21:32:44 watchdog start (poll 300s, stall 3600s, key file: absent)
+2026-11-14 21:32:45 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench setup test ] log=run_all_1115_0231.log size=8096 gpu='35 %, 28020 MiB' errs=0 | 0, 6639.35it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6617.42it/s] 
+2026-11-14 21:37:37 watchdog start (poll 300s, stall 3600s, key file: absent)
+2026-11-14 21:37:38 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot setup test ] log=run_all_1115_0231.log size=12316 gpu='27 %, 18656 MiB' errs=1 | plit:   0%|          | 0/1319 [00:00<?, ? examples/s] Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 644113.05 examples/s] 
+2026-11-14 21:37:38 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 21:42:38 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=18306 gpu='33 %, 24574 MiB' errs=1 | 0, 6625.52it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6540.56it/s] 
+2026-11-14 21:42:38 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 21:47:39 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=18306 gpu='60 %, 24170 MiB' errs=1 | 0, 6625.52it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6540.56it/s] 
+2026-11-14 21:47:39 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 21:52:39 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=30104 gpu='33 %, 25534 MiB' errs=1 | 0, 6598.80it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6908.71it/s] 
+2026-11-14 21:52:39 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 21:57:40 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=30104 gpu='75 %, 29462 MiB' errs=1 | 0, 6598.80it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6908.71it/s] 
+2026-11-14 21:57:40 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:02:40 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=30104 gpu='34 %, 25182 MiB' errs=1 | 0, 6598.80it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6908.71it/s] 
+2026-11-14 22:02:40 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:07:41 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=41964 gpu='22 %, 21178 MiB' errs=1 | 0, 6505.68it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6600.36it/s] 
+2026-11-14 22:07:41 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:12:41 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=41964 gpu='62 %, 27664 MiB' errs=1 | 0, 6505.68it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6600.36it/s] 
+2026-11-14 22:12:41 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:17:42 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=58760 gpu='23 %, 23145 MiB' errs=1 | 0, 6745.54it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6381.51it/s] 
+2026-11-14 22:17:42 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:22:42 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=58760 gpu='80 %, 30020 MiB' errs=1 | 0, 6745.54it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6381.51it/s] 
+2026-11-14 22:22:42 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:27:43 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=58760 gpu='34 %, 33956 MiB' errs=1 | 0, 6745.54it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6381.51it/s] 
+2026-11-14 22:27:43 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:32:43 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[arms env linkbench pilot repro setup test ] log=run_all_1115_0231.log size=58760 gpu='91 %, 36846 MiB' errs=1 | 0, 6745.54it/s]  Loading weights:   0%|          | 0/58 [00:00<?, ?it/s] Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6381.51it/s] 
+2026-11-14 22:32:43 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:37:44 status='SETUP_OK 2026-11-15T02:31:12Z' tmux=up done=[ablate arms env linkbench pilot repro setup sweep test ] log=run_all_1115_0231.log size=84478 gpu='0 %, 2 MiB' errs=1 | |     39.11 |     86.53 |  2.52 |            873.89 | | ('speculative', 'ours', 0)  |               0.99 |     42.89 |     94.95 |  2.52 |           1164.94 |  
+2026-11-14 22:37:44 WARN: 1 error-like lines in run_all_1115_0231.log
+2026-11-14 22:42:44 status='EXIT=0 2026-11-15T03:37:44Z' tmux=down done=[ablate analyze arms env linkbench pilot repro setup sweep test ] log=run_all_1115_0231.log size=88002 gpu='55 %, 29126 MiB' errs=1 | = analyze finished in 0 min  All requested stages done. Log: logs/run_all_1115_0231.log Remember to STOP the instance in the AWS console when you are finished. 
+2026-11-14 22:42:44 job finished OK
+2026-11-14 22:42:45 saved copy on persistent filesystem: /home/ubuntu/cs243/cs2430_gh200_1115_0342
+2026-11-14 22:43:17 pulled results to /Users/wencysuo/code/kvplace/results/gh200
+2026-11-14 22:43:17 instance kept running per user request (no terminate)
+2026-11-14 22:43:17 EXIT: done

@@ -1,0 +1,211 @@
+
+=== hostmem  Sun 03:38 ===
+Traceback (most recent call last):
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2893, in _run_ninja_build
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 2.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 147, in selftest
+    t = host_tensor((1 << 20,), torch.int32)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 124, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 116, in _ext
+    return load_inline(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2543, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2910, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'kvdiag_hostmem': [1/3] /usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+FAILED: [code=2] cuda.cuda.o 
+/usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(61): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    read_reduce_kernel<<<blocks, threads, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                                       ^
+
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(76): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    chase_kernel<<<1, 1, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                      ^
+
+2 errors detected in the compilation of "/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu".
+[2/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -fPIC -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/main.cpp -o main.o 
+ninja: build stopped: subcommand failed.
+
+=== hostmem FAILED after 0 min (continuing with the next stage)
+
+=== smread  Sun 03:38 ===
+Traceback (most recent call last):
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2893, in _run_ninja_build
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 2.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/cs2430_project/sm_read_bench.py", line 124, in <module>
+    main()
+  File "/home/ubuntu/cs2430_project/sm_read_bench.py", line 50, in main
+    hostmem.selftest()
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 147, in selftest
+    t = host_tensor((1 << 20,), torch.int32)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 124, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 116, in _ext
+    return load_inline(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2543, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2910, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'kvdiag_hostmem': [1/2] /usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+FAILED: [code=2] cuda.cuda.o 
+/usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(61): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    read_reduce_kernel<<<blocks, threads, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                                       ^
+
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(76): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    chase_kernel<<<1, 1, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                      ^
+
+2 errors detected in the compilation of "/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu".
+ninja: build stopped: subcommand failed.
+
+=== smread FAILED after 0 min (continuing with the next stage)
+
+=== profile  Sun 03:38 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6658.13it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6558.19it/s]
+USDT:2026-11-15 03:39:07 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:39:09 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:39:19 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:39:20 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:39:34 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:39:35 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:39:44 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:39:46 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:40:01 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:40:02 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:40:12 6751:6751 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:40:14 6751:6751 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   57.79 ms clean | step   70.07 ms profiled, GPU 114.31 ms (163.1% busy),   2602 launches, malloc 0.0 free 0.0 sync 1.0/step
+       36.959 ms/step  x  82.0  Command Buffer Full
+       16.485 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       13.991 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.685 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        4.731 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        3.078 ms/step  x 162.2  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+hbm       R= 0 bs=16: tpot   84.05 ms clean | step   90.15 ms profiled, GPU 112.23 ms (124.5% busy),   3049 launches, malloc 0.0 free 0.0 sync 1.0/step
+       24.300 ms/step  x  54.0  Command Buffer Full
+       24.000 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.561 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       10.276 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.159 ms/step  x 174.3  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        8.990 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+ours      R=36 bs= 1: tpot   44.40 ms clean | step   70.83 ms profiled, GPU 114.57 ms (161.7% busy),   2602 launches, malloc 0.0 free 0.0 sync 1.0/step
+       37.323 ms/step  x  82.3  Command Buffer Full
+       16.478 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       13.966 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.661 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        4.724 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        3.077 ms/step  x 162.2  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+ours      R=36 bs=16: tpot   43.44 ms clean | step   90.94 ms profiled, GPU 112.49 ms (123.7% busy),   3049 launches, malloc 0.0 free 0.0 sync 1.0/step
+       24.191 ms/step  x  54.0  Command Buffer Full
+       24.110 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.643 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       10.299 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.191 ms/step  x 174.3  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        9.075 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+ours      R= 0 bs= 1: tpot   77.26 ms clean | step   81.93 ms profiled, GPU 106.84 ms (130.4% busy),   2770 launches, malloc 0.2 free 0.0 sync 1.0/step
+       21.927 ms/step  x  81.7  Command Buffer Full
+       16.503 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       14.011 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.688 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        6.650 ms/step  x  72.4  Memcpy HtoD (Pinned -> Device)
+        4.743 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+ours      R= 0 bs=16: tpot   48.89 ms clean | step  103.25 ms profiled, GPU 104.58 ms (101.3% busy),   3208 launches, malloc 0.1 free 0.0 sync 1.0/step
+       23.995 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.911 ms/step  x  53.0  Command Buffer Full
+       12.852 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.608 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+        9.029 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        6.645 ms/step  x  72.3  Memcpy HtoD (Pinned -> Device)
+Traceback (most recent call last):
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2893, in _run_ninja_build
+    subprocess.run(
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 2.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/cs2430_project/profile_step.py", line 154, in <module>
+    main()
+  File "/home/ubuntu/cs2430_project/profile_step.py", line 115, in main
+    dm.dflash_generate(draft, target, ids[:, :256], 32, None, block_size=bs)  # warmup
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/cs2430_project/.deps/dflash/dflash/model.py", line 201, in dflash_generate
+    past_key_values_target = _make_cache(target.config)
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 532, in _make_cache
+    cache = make_cache(arm, config, device=target.device, dtype=target.dtype,
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 504, in make_cache
+    cache = OffloadedKVCache(config, max_len=max_len, device=device, dtype=dtype, stats=stats, **knobs)
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 335, in __init__
+    layer = HostOffloadLayer(self, i, len(self.off_layers))
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 172, in __init__
+    self.host_k, self.host_v = cache._host_buffers(layer_idx)
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 371, in _host_buffers
+    return (_pooled(("host", layer_idx, "k", shape, self.dtype, mode), alloc),
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 103, in _pooled
+    buf = factory()
+  File "/home/ubuntu/cs2430_project/kvoffload.py", line 364, in alloc
+    return hostmem.host_tensor(shape, self.dtype)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 124, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+  File "/home/ubuntu/cs2430_project/hostmem.py", line 116, in _ext
+    return load_inline(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2543, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+  File "/home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py", line 2910, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'kvdiag_hostmem': [1/2] /usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+FAILED: [code=2] cuda.cuda.o 
+/usr/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=kvdiag_hostmem -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include -isystem /home/ubuntu/cs2430_project/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /usr/include/python3.10 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 --compiler-options '-fPIC' -O3 -std=c++20 -c /home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu -o cuda.cuda.o 
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(61): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    read_reduce_kernel<<<blocks, threads, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                                       ^
+
+/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu(76): error: namespace "at::cuda" has no member "getCurrentCUDAStream"
+    chase_kernel<<<1, 1, 0, at::cuda::getCurrentCUDAStream()>>>(
+                                      ^
+
+2 errors detected in the compilation of "/home/ubuntu/.cache/torch_extensions/py310_cu130/kvdiag_hostmem/cuda.cu".
+ninja: build stopped: subcommand failed.
+
+=== profile FAILED after 1 min (continuing with the next stage)
+
+=== zc16  Sun 03:40 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6561.26it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6156.70it/s]

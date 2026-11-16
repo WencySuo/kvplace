@@ -1,0 +1,31 @@
+name, memory.total [MiB], driver_version
+NVIDIA GH200 480GB, 97871 MiB, 580.105.08
+  /tmp/pip-build-env-r639aql1/overlay/lib/python3.10/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+torch 2.13.0+cu130 (CUDA 13.0), transformers 5.15.0
+GPU: NVIDIA GH200 480GB
+Downloading models (~18 GB) ...
+Fetching 15 files:   0%|          | 0/15 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 15 files:  60%|██████    | 9/15 [00:00<00:00, 78.38it/s]Fetching 15 files:  87%|████████▋ | 13/15 [00:20<00:00, 78.38it/s]Fetching 15 files:  93%|█████████▎| 14/15 [00:20<00:01,  1.83s/it]Fetching 15 files: 100%|██████████| 15/15 [00:22<00:00,  1.80s/it]Fetching 15 files: 100%|██████████| 15/15 [00:22<00:00,  1.49s/it]
+  Qwen/Qwen3-8B -> /home/ubuntu/.cache/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  89%|████████▉ | 8/9 [00:00<00:00, 27.25it/s]Fetching 9 files: 100%|██████████| 9/9 [00:05<00:00,  1.55it/s]
+  z-lab/Qwen3-8B-DFlash-b16 -> /home/ubuntu/.cache/huggingface/hub/models--z-lab--Qwen3-8B-DFlash-b16/snapshots/9b41424b7109f9c5413454f481b09a82b85333f4
+Caching SPEED-Bench splits ...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+configs: ['qualitative', 'throughput_16k', 'throughput_1k', 'throughput_2k', 'throughput_32k', 'throughput_8k', 'throughput_100k']
+Generating test split:   0%|          | 0/1536 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1536/1536 [00:00<00:00, 131173.41 examples/s]
+throughput_2k: 1536 rows, 639 masked, 897 usable
+Generating test split:   0%|          | 0/1536 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1536/1536 [00:00<00:00, 47058.16 examples/s]
+throughput_8k: 1536 rows, 736 masked, 800 usable
+Generating test split:   0%|          | 0/1536 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1536/1536 [00:00<00:00, 22580.45 examples/s]
+throughput_16k: 1536 rows, 750 masked, 786 usable
+
+Setup done. Next:  tmux new -s run   then   bash run_all.sh

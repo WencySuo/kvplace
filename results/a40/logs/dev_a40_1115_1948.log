@@ -1,0 +1,131 @@
+=== gate  2026-11-15T19:48:28Z
+device=cuda
+[1] randomized crop stress vs DynamicCache (max |logit diff|):
+  OK  ondemand         diff=0.00e+00 offload_fraction=0.87
+  OK  ours/2slot       diff=0.00e+00 offload_fraction=0.81
+  OK  ours/3slot,R=2   diff=0.00e+00 offload_fraction=0.59
+  OK  ours/tail0       diff=0.00e+00 offload_fraction=1.00
+  OK  ours/noPhase     diff=0.00e+00 offload_fraction=0.87
+  OK  ours/R=2,last    diff=0.00e+00 offload_fraction=0.53
+Traceback (most recent call last):
+  File "/workspace/cs2430_project/test_kvoffload.py", line 156, in <module>
+    main()
+  File "/workspace/cs2430_project/test_kvoffload.py", line 143, in main
+    worst, cache = crop_stress(target, kw)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/test_kvoffload.py", line 66, in crop_stress
+    test = ko.make_cache(arm, model.config, device=DEVICE, dtype=DTYPE, max_len=2048, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 685, in make_cache
+    cache = OffloadedKVCache(config, max_len=max_len, device=device, dtype=dtype, stats=stats, **knobs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 509, in __init__
+    layer = HostOffloadLayer(self, i, len(self.off_layers))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 220, in __init__
+    self.host_k, self.host_v = cache._host_buffers(layer_idx)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 545, in _host_buffers
+    return (_pooled(("host", layer_idx, "k", shape, self.dtype, mode), alloc),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 103, in _pooled
+    buf = factory()
+          ^^^^^^^^^
+  File "/workspace/cs2430_project/kvoffload.py", line 538, in alloc
+    return hostmem.host_tensor(shape, self.dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 125, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+               ^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 117, in _ext
+    return load_inline(
+           ^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+           ^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2496, in _write_ninja_file_and_build_library
+    verify_ninja_availability()
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2562, in verify_ninja_availability
+    raise RuntimeError("Ninja is required to load C++ extensions (pip install ninja to get it)")
+RuntimeError: Ninja is required to load C++ extensions (pip install ninja to get it)
+!!! gate FAILED
+=== kernel  2026-11-15T19:48:41Z
+
+=== hostmem  Sun 19:48 ===
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/workspace/cs2430_project/hostmem.py", line 148, in selftest
+    t = host_tensor((1 << 20,), torch.int32)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 125, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+               ^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 117, in _ext
+    return load_inline(
+           ^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+           ^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2496, in _write_ninja_file_and_build_library
+    verify_ninja_availability()
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2562, in verify_ninja_availability
+    raise RuntimeError("Ninja is required to load C++ extensions (pip install ninja to get it)")
+RuntimeError: Ninja is required to load C++ extensions (pip install ninja to get it)
+=== hostmem FAILED after 0 min (continuing with the next stage)
+
+=== kernel  Sun 19:48 ===
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cpu] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cpu] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kv_host_attn tests done
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cuda] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cuda] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.bfloat16: max abs diff 2.61e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.float16: max abs diff 2.85e-05
+kernel [cuda] S=16385 Q=16 nsplit=None torch.bfloat16: max abs diff 1.59e-04
+kv_host_attn tests done
+Traceback (most recent call last):
+  File "/workspace/cs2430_project/bench_kv_host_attn.py", line 72, in <module>
+    main()
+  File "/workspace/cs2430_project/bench_kv_host_attn.py", line 51, in main
+    kx, vx = hostmem.host_tensor((S, 1, HKV, D), dt), hostmem.host_tensor((S, 1, HKV, D), dt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 125, in host_tensor
+    cpu, gpu = _ext().host_alloc(list(shape), dtype)
+               ^^^^^^
+  File "/workspace/cs2430_project/hostmem.py", line 117, in _ext
+    return load_inline(
+           ^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2285, in load_inline
+    return _jit_compile(
+           ^^^^^^^^^^^^^
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2382, in _jit_compile
+    _write_ninja_file_and_build_library(
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2496, in _write_ninja_file_and_build_library
+    verify_ninja_availability()
+  File "/workspace/cs2430_project/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py", line 2562, in verify_ninja_availability
+    raise RuntimeError("Ninja is required to load C++ extensions (pip install ninja to get it)")
+RuntimeError: Ninja is required to load C++ extensions (pip install ninja to get it)
+=== kernel FAILED after 0 min (continuing with the next stage)
+All stages attempted, rc=1. Log: logs/followups_1115_1948.log
+=== kernel ok in 0 min
+=== profile  2026-11-15T19:49:02Z
+
+=== profile_gqa  Sun 19:49 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  37%|███▋      | 146/399 [00:00<00:00, 1457.94it/s]Loading weights:  73%|███████▎  | 292/399 [00:00<00:00, 978.24it/s] Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1123.47it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 7759.80it/s]

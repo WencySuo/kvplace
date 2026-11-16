@@ -1,0 +1,656 @@
+
+=== env  Sun 02:31 ===
+Sun Nov 15 02:31:12 UTC 2026
+
+Sun Nov 15 02:31:12 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.105.08             Driver Version: 580.105.08     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GH200 480GB             On  |   00000000:DD:00.0 Off |                    0 |
+| N/A   31C    P0             69W /  700W |       0MiB /  97871MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+            Link Width
+                Max                       : 1x
+                Current                   : 1x
+
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  64
+On-line CPU(s) list:                     0-63
+Vendor ID:                               ARM
+Model name:                              Neoverse-V2
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      64
+Socket(s):                               1
+Stepping:                                r0p0
+BogoMIPS:                                2000.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm ssbs sb paca pacg dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti
+NUMA node(s):                            9
+NUMA node0 CPU(s):                       0-63
+NUMA node1 CPU(s):                       
+NUMA node2 CPU(s):                       
+NUMA node3 CPU(s):                       
+NUMA node4 CPU(s):                       
+
+               total        used        free      shared  buff/cache   available
+Mem:             525           8         486           0          30         483
+Swap:              0           0           0
+
+cs2430 commit: d968c90
+dflash commit: 07ebd93
+
+datasets==5.0.1
+numpy==2.2.6
+torch==2.13.0
+transformers==5.15.0
+=== env finished in 0 min
+
+=== test  Sun 02:31 ===
+device=cuda
+[1] randomized crop stress vs DynamicCache (max |logit diff|):
+  OK  ondemand         diff=0.00e+00 offload_fraction=0.87
+  OK  ours/2slot       diff=0.00e+00 offload_fraction=0.81
+  OK  ours/3slot,R=2   diff=0.00e+00 offload_fraction=0.59
+  OK  ours/tail0       diff=0.00e+00 offload_fraction=1.00
+  OK  ours/noPhase     diff=0.00e+00 offload_fraction=0.87
+[2] dflash_generate end to end (greedy):
+  hbm              tokens= 300 mean_accept=1.00 h2d=   0.00MB d2h=  0.00MB suppressed= 0.00MB
+  hf_offload       tokens= 300 mean_accept=1.00 h2d= 161.53MB d2h=167.78MB suppressed= 0.00MB
+  ondemand         tokens= 300 mean_accept=1.00 h2d= 117.12MB d2h=  0.60MB suppressed= 6.73MB
+  ours/2slot       tokens= 300 mean_accept=1.00 h2d= 117.32MB d2h=  0.60MB suppressed= 6.73MB
+  ours/3slot,R=2   tokens= 300 mean_accept=1.00 h2d=  39.34MB d2h=  0.40MB suppressed= 4.49MB
+  ours/tail0       tokens= 300 mean_accept=1.00 h2d= 160.54MB d2h=  0.77MB suppressed= 6.73MB
+  ours/noPhase     tokens= 300 mean_accept=1.00 h2d= 117.12MB d2h=  0.60MB suppressed= 6.73MB
+  outputs identical across arms: True
+=== test finished in 0 min
+
+=== linkbench  Sun 02:31 ===
+NVIDIA_GH200_480GB: GEMM alone 397.5 TFLOP/s
+h2d pinned=True      0.06 MiB    17.5 GB/s  (under GEMM   15.4 GB/s)
+d2h pinned=True      0.06 MiB    15.4 GB/s  (under GEMM   16.9 GB/s)
+h2d pinned=True      0.25 MiB    63.9 GB/s  (under GEMM   63.3 GB/s)
+d2h pinned=True      0.25 MiB    59.7 GB/s  (under GEMM   60.5 GB/s)
+h2d pinned=True      1.00 MiB   213.1 GB/s  (under GEMM  208.8 GB/s)
+d2h pinned=True      1.00 MiB   185.2 GB/s  (under GEMM  171.0 GB/s)
+h2d pinned=True      4.00 MiB   291.3 GB/s  (under GEMM  289.6 GB/s)
+d2h pinned=True      4.00 MiB   251.0 GB/s  (under GEMM  245.7 GB/s)
+h2d pinned=True     16.00 MiB   346.5 GB/s  (under GEMM  345.0 GB/s)
+d2h pinned=True     16.00 MiB   274.6 GB/s  (under GEMM  271.5 GB/s)
+h2d pinned=True     64.00 MiB   340.5 GB/s  (under GEMM  340.0 GB/s)
+d2h pinned=True     64.00 MiB   283.6 GB/s  (under GEMM  282.0 GB/s)
+h2d pinned=True    256.00 MiB   342.1 GB/s  (under GEMM  341.5 GB/s)
+d2h pinned=True    256.00 MiB   283.9 GB/s  (under GEMM  282.1 GB/s)
+h2d pinned=True    512.00 MiB   351.9 GB/s  (under GEMM  352.4 GB/s)
+d2h pinned=True    512.00 MiB   286.1 GB/s  (under GEMM  284.4 GB/s)
+h2d pinned=True   1024.00 MiB   366.8 GB/s  (under GEMM  365.9 GB/s)
+d2h pinned=True   1024.00 MiB   275.8 GB/s  (under GEMM  295.4 GB/s)
+h2d pinned=False     0.06 MiB    12.4 GB/s  (under GEMM   12.3 GB/s)
+d2h pinned=False     0.06 MiB     6.0 GB/s  (under GEMM    5.9 GB/s)
+h2d pinned=False     0.25 MiB    23.9 GB/s  (under GEMM   22.5 GB/s)
+d2h pinned=False     0.25 MiB    23.0 GB/s  (under GEMM   22.7 GB/s)
+h2d pinned=False     1.00 MiB    80.6 GB/s  (under GEMM   78.2 GB/s)
+d2h pinned=False     1.00 MiB    73.6 GB/s  (under GEMM   70.5 GB/s)
+h2d pinned=False     4.00 MiB   175.2 GB/s  (under GEMM  171.1 GB/s)
+d2h pinned=False     4.00 MiB   159.7 GB/s  (under GEMM  156.5 GB/s)
+h2d pinned=False    16.00 MiB   271.4 GB/s  (under GEMM  272.1 GB/s)
+d2h pinned=False    16.00 MiB   219.9 GB/s  (under GEMM  234.1 GB/s)
+h2d pinned=False    64.00 MiB   340.9 GB/s  (under GEMM  342.9 GB/s)
+d2h pinned=False    64.00 MiB   270.8 GB/s  (under GEMM  269.4 GB/s)
+h2d pinned=False   256.00 MiB   365.0 GB/s  (under GEMM  366.8 GB/s)
+d2h pinned=False   256.00 MiB   279.1 GB/s  (under GEMM  278.1 GB/s)
+h2d pinned=False   512.00 MiB   383.0 GB/s  (under GEMM  298.7 GB/s)
+d2h pinned=False   512.00 MiB   219.0 GB/s  (under GEMM  287.5 GB/s)
+h2d pinned=False  1024.00 MiB   375.6 GB/s  (under GEMM  376.9 GB/s)
+d2h pinned=False  1024.00 MiB   288.5 GB/s  (under GEMM  287.8 GB/s)
+KV layer K,    256 tok (   0.5 MiB): one copy  108.2 GB/s, 8 per-head copies    5.0 GB/s
+KV layer K,   1024 tok (   2.0 MiB): one copy  248.6 GB/s, 8 per-head copies   20.2 GB/s
+KV layer K,   4096 tok (   8.0 MiB): one copy  323.0 GB/s, 8 per-head copies   87.0 GB/s
+KV layer K,  16384 tok (  32.0 MiB): one copy  365.8 GB/s, 8 per-head copies  275.8 GB/s
+KV layer K,  32768 tok (  64.0 MiB): one copy  340.9 GB/s, 8 per-head copies  310.5 GB/s
+wrote results/linkbench_NVIDIA_GH200_480GB.csv
+=== linkbench finished in 0 min
+
+=== pilot  Sun 02:31 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6639.35it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6617.42it/s]
+2 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    14.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    14.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    15.3 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    13.7 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hf_offload {}                                                                     bs= 1 p0 ctx= 15940    21.3 tok/s acc=1.00 h2d/step=  2369.4MB peak=18.9GiB match=False
+hf_offload {}                                                                     bs= 1 p1 ctx= 16386    21.3 tok/s acc=1.00 h2d/step=  2435.2MB peak=18.9GiB match=False
+hf_offload {}                                                                     bs=16 p0 ctx= 15940    13.0 tok/s acc=1.47 h2d/step=  2366.4MB peak=23.0GiB match=False
+hf_offload {}                                                                     bs=16 p1 ctx= 16386    28.9 tok/s acc=1.00 h2d/step=  2483.4MB peak=23.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p0 ctx= 15940    13.2 tok/s acc=1.00 h2d/step=  2355.1MB peak=21.1GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p1 ctx= 16386    13.2 tok/s acc=1.00 h2d/step=  2420.9MB peak=21.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p0 ctx= 15940    30.3 tok/s acc=1.83 h2d/step=  2355.1MB peak=25.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p1 ctx= 16386    26.0 tok/s acc=1.58 h2d/step=  2421.5MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    21.3 tok/s acc=1.00 h2d/step=  2355.6MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    21.3 tok/s acc=1.00 h2d/step=  2421.4MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    31.0 tok/s acc=1.83 h2d/step=  2356.0MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    26.6 tok/s acc=1.58 h2d/step=  2422.3MB peak=25.7GiB match=True
+
+pilot: 16 runs, 3.7 min of generation
+upper bound for the default stages (~430 runs): ~1.7 h (2k/8k runs are faster than these 16k ones)
+WARNING: 6 offloaded runs emitted different tokens than HBM-only:
+    hf_offload block 1 prompt 0
+    hf_offload block 1 prompt 1
+    hf_offload block 16 prompt 0
+    hf_offload block 16 prompt 1
+    ondemand block 1 prompt 0
+    ondemand block 1 prompt 1
+Continuing, but tell the team: the report claims identical outputs.
+=== pilot finished in 4 min
+
+=== repro  Sun 02:35 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6349.51it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6330.53it/s]
+Generating train split:   0%|          | 0/7473 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 7473/7473 [00:00<00:00, 1119989.77 examples/s]
+Generating test split:   0%|          | 0/1319 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 644113.05 examples/s]
+16 prompts, lengths 53-138, max_len=442, target KV 144 KiB/token -> 0.06 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=    92    15.5 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx=    53    21.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx=    84    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx=    62    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p4 ctx=   138    21.9 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p5 ctx=    83    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p6 ctx=    69    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p7 ctx=    97    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p8 ctx=   131    25.2 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p9 ctx=    87    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p10 ctx=    87    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p11 ctx=    92    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p12 ctx=    94    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p13 ctx=    85    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p14 ctx=    79    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs= 1 p15 ctx=   121    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=    92    44.6 tok/s acc=4.72 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx=    53    50.1 tok/s acc=5.31 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx=    84    58.5 tok/s acc=5.43 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx=    62    77.2 tok/s acc=6.59 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p4 ctx=   138    55.0 tok/s acc=5.10 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p5 ctx=    83    61.2 tok/s acc=5.00 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p6 ctx=    69    86.8 tok/s acc=6.54 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p7 ctx=    97    57.3 tok/s acc=4.64 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p8 ctx=   131    53.0 tok/s acc=4.18 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p9 ctx=    87    91.7 tok/s acc=5.67 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p10 ctx=    87    99.8 tok/s acc=6.29 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p11 ctx=    92   123.0 tok/s acc=7.29 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p12 ctx=    94    73.7 tok/s acc=4.55 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p13 ctx=    85   117.2 tok/s acc=6.89 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p14 ctx=    79   129.5 tok/s acc=7.29 h2d/step=     0.0MB peak=17.3GiB match=True
+hbm        {}                                                                     bs=16 p15 ctx=   121    74.9 tok/s acc=4.47 h2d/step=     0.0MB peak=17.3GiB match=True
+=== repro finished in 3 min
+
+=== arms  Sun 02:39 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6625.52it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6540.56it/s]
+8 prompts, lengths 7242-8905, max_len=9209, target KV 144 KiB/token -> 1.26 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=  7916    15.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx=  7242    14.9 tok/s acc=1.00 h2d/step=     0.0MB peak=19.0GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx=  8000    15.7 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx=  8064    21.6 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs= 1 p4 ctx=  7993    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p5 ctx=  8051    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs= 1 p6 ctx=  8905    14.7 tok/s acc=1.00 h2d/step=     0.0MB peak=19.4GiB match=True
+hbm        {}                                                                     bs= 1 p7 ctx=  8048    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=  7916    20.3 tok/s acc=2.23 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx=  7242    14.4 tok/s acc=1.59 h2d/step=     0.0MB peak=20.8GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx=  8000    21.5 tok/s acc=2.36 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx=  8064    17.9 tok/s acc=1.70 h2d/step=     0.0MB peak=21.3GiB match=True
+hbm        {}                                                                     bs=16 p4 ctx=  7993    31.6 tok/s acc=2.22 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p5 ctx=  8051    73.9 tok/s acc=4.90 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p6 ctx=  8905    14.9 tok/s acc=1.66 h2d/step=     0.0MB peak=21.7GiB match=True
+hbm        {}                                                                     bs=16 p7 ctx=  8048    26.6 tok/s acc=1.73 h2d/step=     0.0MB peak=21.2GiB match=True
+hf_offload {}                                                                     bs= 1 p0 ctx=  7916    22.1 tok/s acc=1.00 h2d/step=  1176.2MB peak=18.1GiB match=True
+hf_offload {}                                                                     bs= 1 p1 ctx=  7242    22.0 tok/s acc=1.00 h2d/step=  1086.7MB peak=18.0GiB match=False
+hf_offload {}                                                                     bs= 1 p2 ctx=  8000    21.9 tok/s acc=1.00 h2d/step=  1198.5MB peak=18.1GiB match=False
+hf_offload {}                                                                     bs= 1 p3 ctx=  8064    22.0 tok/s acc=1.00 h2d/step=  1207.9MB peak=18.1GiB match=False
+hf_offload {}                                                                     bs= 1 p4 ctx=  7993    22.1 tok/s acc=1.00 h2d/step=  1192.3MB peak=18.1GiB match=True
+hf_offload {}                                                                     bs= 1 p5 ctx=  8051    22.1 tok/s acc=1.00 h2d/step=  1206.0MB peak=18.1GiB match=True
+hf_offload {}                                                                     bs= 1 p6 ctx=  8905    22.0 tok/s acc=1.00 h2d/step=  1332.0MB peak=18.2GiB match=False
+hf_offload {}                                                                     bs= 1 p7 ctx=  8048    22.1 tok/s acc=1.00 h2d/step=  1205.6MB peak=18.1GiB match=False
+hf_offload {}                                                                     bs=16 p0 ctx=  7916    29.2 tok/s acc=2.23 h2d/step=  1175.7MB peak=20.1GiB match=True
+hf_offload {}                                                                     bs=16 p1 ctx=  7242    20.7 tok/s acc=1.59 h2d/step=  1086.7MB peak=19.9GiB match=True
+hf_offload {}                                                                     bs=16 p2 ctx=  8000    30.2 tok/s acc=2.36 h2d/step=  1197.8MB peak=20.2GiB match=True
+hf_offload {}                                                                     bs=16 p3 ctx=  8064    21.6 tok/s acc=1.70 h2d/step=  1209.3MB peak=20.2GiB match=True
+hf_offload {}                                                                     bs=16 p4 ctx=  7993    28.1 tok/s acc=2.22 h2d/step=  1192.4MB peak=20.2GiB match=True
+hf_offload {}                                                                     bs=16 p5 ctx=  8051    62.9 tok/s acc=4.90 h2d/step=  1204.7MB peak=20.2GiB match=True
+hf_offload {}                                                                     bs=16 p6 ctx=  8905    21.2 tok/s acc=1.66 h2d/step=  1334.2MB peak=20.5GiB match=True
+hf_offload {}                                                                     bs=16 p7 ctx=  8048    22.6 tok/s acc=1.73 h2d/step=  1206.3MB peak=20.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p0 ctx=  7916    13.5 tok/s acc=1.00 h2d/step=  1162.1MB peak=19.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p1 ctx=  7242    13.4 tok/s acc=1.00 h2d/step=  1072.5MB peak=19.0GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p2 ctx=  8000    14.2 tok/s acc=1.00 h2d/step=  1184.3MB peak=19.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p3 ctx=  8064    18.9 tok/s acc=1.00 h2d/step=  1193.7MB peak=19.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p4 ctx=  7993    21.8 tok/s acc=1.00 h2d/step=  1178.2MB peak=19.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p5 ctx=  8051    21.7 tok/s acc=1.00 h2d/step=  1191.8MB peak=19.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p6 ctx=  8905    13.4 tok/s acc=1.00 h2d/step=  1317.8MB peak=19.4GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p7 ctx=  8048    21.8 tok/s acc=1.00 h2d/step=  1191.4MB peak=19.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p0 ctx=  7916    39.0 tok/s acc=2.23 h2d/step=  1161.9MB peak=21.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p1 ctx=  7242    27.8 tok/s acc=1.59 h2d/step=  1072.5MB peak=20.9GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p2 ctx=  8000    41.2 tok/s acc=2.36 h2d/step=  1183.7MB peak=21.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p3 ctx=  8064    29.7 tok/s acc=1.70 h2d/step=  1195.0MB peak=21.4GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p4 ctx=  7993    38.9 tok/s acc=2.22 h2d/step=  1178.4MB peak=21.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p5 ctx=  8051    85.4 tok/s acc=4.90 h2d/step=  1190.8MB peak=21.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p6 ctx=  8905    29.0 tok/s acc=1.66 h2d/step=  1319.6MB peak=21.8GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p7 ctx=  8048    30.2 tok/s acc=1.73 h2d/step=  1192.1MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    21.7 tok/s acc=1.00 h2d/step=  1162.7MB peak=19.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    21.7 tok/s acc=1.00 h2d/step=  1072.8MB peak=19.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    21.7 tok/s acc=1.00 h2d/step=  1184.6MB peak=19.4GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    21.8 tok/s acc=1.00 h2d/step=  1194.0MB peak=19.4GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    21.8 tok/s acc=1.00 h2d/step=  1178.6MB peak=19.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    21.8 tok/s acc=1.00 h2d/step=  1192.1MB peak=19.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p6 ctx=  8905    21.7 tok/s acc=1.00 h2d/step=  1318.0MB peak=19.6GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p7 ctx=  8048    21.7 tok/s acc=1.00 h2d/step=  1191.7MB peak=19.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    38.9 tok/s acc=2.23 h2d/step=  1163.1MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    27.7 tok/s acc=1.59 h2d/step=  1072.8MB peak=21.1GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    40.9 tok/s acc=2.36 h2d/step=  1184.3MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    29.5 tok/s acc=1.70 h2d/step=  1195.5MB peak=21.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    38.5 tok/s acc=2.22 h2d/step=  1179.2MB peak=21.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    84.7 tok/s acc=4.90 h2d/step=  1192.0MB peak=21.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p6 ctx=  8905    28.8 tok/s acc=1.66 h2d/step=  1320.1MB peak=21.9GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p7 ctx=  8048    30.1 tok/s acc=1.73 h2d/step=  1192.6MB peak=21.5GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6598.80it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6908.71it/s]
+8 prompts, lengths 15892-16528, max_len=16832, target KV 144 KiB/token -> 2.31 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    14.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    14.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    18.8 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p4 ctx= 15892    22.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p5 ctx= 16528    18.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs= 1 p6 ctx= 16453    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p7 ctx= 15957    25.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.3 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.0 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.4 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    31.5 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p4 ctx= 15892    23.5 tok/s acc=1.86 h2d/step=     0.0MB peak=25.1GiB match=True
+hbm        {}                                                                     bs=16 p5 ctx= 16528    16.4 tok/s acc=1.62 h2d/step=     0.0MB peak=25.5GiB match=True
+hbm        {}                                                                     bs=16 p6 ctx= 16453    47.5 tok/s acc=3.49 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p7 ctx= 15957    30.3 tok/s acc=2.04 h2d/step=     0.0MB peak=25.2GiB match=True
+hf_offload {}                                                                     bs= 1 p0 ctx= 15940    22.2 tok/s acc=1.00 h2d/step=  2369.4MB peak=18.9GiB match=True
+hf_offload {}                                                                     bs= 1 p1 ctx= 16386    22.1 tok/s acc=1.00 h2d/step=  2435.2MB peak=18.9GiB match=False
+hf_offload {}                                                                     bs= 1 p2 ctx= 16067    22.2 tok/s acc=1.00 h2d/step=  2388.2MB peak=18.9GiB match=True
+hf_offload {}                                                                     bs= 1 p3 ctx= 16025    22.2 tok/s acc=1.00 h2d/step=  2382.0MB peak=18.9GiB match=True
+hf_offload {}                                                                     bs= 1 p4 ctx= 15892    22.2 tok/s acc=1.00 h2d/step=  2362.4MB peak=18.9GiB match=False
+hf_offload {}                                                                     bs= 1 p5 ctx= 16528    22.3 tok/s acc=1.00 h2d/step=  2456.1MB peak=19.0GiB match=False
+hf_offload {}                                                                     bs= 1 p6 ctx= 16453    22.4 tok/s acc=1.00 h2d/step=  2445.1MB peak=18.9GiB match=False
+hf_offload {}                                                                     bs= 1 p7 ctx= 15957    22.5 tok/s acc=1.00 h2d/step=  2371.9MB peak=18.9GiB match=True
+hf_offload {}                                                                     bs=16 p0 ctx= 15940    12.2 tok/s acc=1.15 h2d/step=  2369.7MB peak=23.0GiB match=False
+hf_offload {}                                                                     bs=16 p1 ctx= 16386    16.2 tok/s acc=1.63 h2d/step=  2434.9MB peak=23.2GiB match=False
+hf_offload {}                                                                     bs=16 p2 ctx= 16067    46.7 tok/s acc=4.47 h2d/step=  2382.3MB peak=23.1GiB match=False
+hf_offload {}                                                                     bs=16 p3 ctx= 16025    10.9 tok/s acc=1.02 h2d/step=  2381.9MB peak=23.1GiB match=False
+hf_offload {}                                                                     bs=16 p4 ctx= 15892    14.6 tok/s acc=1.42 h2d/step=  2359.1MB peak=23.0GiB match=False
+hf_offload {}                                                                     bs=16 p5 ctx= 16528    13.6 tok/s acc=1.36 h2d/step=  2454.6MB peak=23.2GiB match=False
+hf_offload {}                                                                     bs=16 p6 ctx= 16453    19.6 tok/s acc=1.86 h2d/step=  2441.5MB peak=23.2GiB match=False
+hf_offload {}                                                                     bs=16 p7 ctx= 15957    11.7 tok/s acc=1.09 h2d/step=  2371.8MB peak=23.0GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p0 ctx= 15940    12.3 tok/s acc=1.00 h2d/step=  2355.1MB peak=21.1GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p1 ctx= 16386    12.2 tok/s acc=1.00 h2d/step=  2420.9MB peak=21.2GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p2 ctx= 16067    15.1 tok/s acc=1.00 h2d/step=  2373.8MB peak=21.1GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p3 ctx= 16025    19.7 tok/s acc=1.00 h2d/step=  2367.6MB peak=21.1GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p4 ctx= 15892    17.6 tok/s acc=1.00 h2d/step=  2348.0MB peak=21.1GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p5 ctx= 16528    14.5 tok/s acc=1.00 h2d/step=  2441.8MB peak=21.3GiB match=False
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p6 ctx= 16453    19.6 tok/s acc=1.00 h2d/step=  2430.8MB peak=21.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs= 1 p7 ctx= 15957    19.7 tok/s acc=1.00 h2d/step=  2357.6MB peak=21.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p0 ctx= 15940    28.5 tok/s acc=1.83 h2d/step=  2355.1MB peak=25.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p1 ctx= 16386    24.5 tok/s acc=1.58 h2d/step=  2421.5MB peak=25.5GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p2 ctx= 16067    27.8 tok/s acc=1.80 h2d/step=  2372.1MB peak=25.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p3 ctx= 16025    38.3 tok/s acc=2.45 h2d/step=  2366.6MB peak=25.3GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p4 ctx= 15892    29.0 tok/s acc=1.86 h2d/step=  2349.4MB peak=25.2GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p5 ctx= 16528    25.2 tok/s acc=1.62 h2d/step=  2441.8MB peak=25.6GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p6 ctx= 16453    54.1 tok/s acc=3.49 h2d/step=  2425.4MB peak=25.5GiB match=True
+ondemand   {"tail_keep": 64, "flush_chunk": 64}                                   bs=16 p7 ctx= 15957    31.6 tok/s acc=2.04 h2d/step=  2356.6MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    19.3 tok/s acc=1.00 h2d/step=  2355.6MB peak=21.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    19.5 tok/s acc=1.00 h2d/step=  2421.4MB peak=21.4GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    19.5 tok/s acc=1.00 h2d/step=  2374.4MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    19.4 tok/s acc=1.00 h2d/step=  2368.2MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    19.3 tok/s acc=1.00 h2d/step=  2348.5MB peak=21.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    19.4 tok/s acc=1.00 h2d/step=  2442.4MB peak=21.5GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p6 ctx= 16453    19.5 tok/s acc=1.00 h2d/step=  2431.3MB peak=21.5GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p7 ctx= 15957    19.5 tok/s acc=1.00 h2d/step=  2358.1MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    28.3 tok/s acc=1.83 h2d/step=  2356.0MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    24.4 tok/s acc=1.58 h2d/step=  2422.3MB peak=25.7GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    27.9 tok/s acc=1.80 h2d/step=  2373.0MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    38.1 tok/s acc=2.45 h2d/step=  2367.9MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    28.9 tok/s acc=1.86 h2d/step=  2350.4MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    25.2 tok/s acc=1.62 h2d/step=  2442.6MB peak=25.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p6 ctx= 16453    53.9 tok/s acc=3.49 h2d/step=  2427.3MB peak=25.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p7 ctx= 15957    31.4 tok/s acc=2.04 h2d/step=  2357.7MB peak=25.5GiB match=True
+=== arms finished in 25 min
+
+=== sweep  Sun 03:05 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6505.68it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6600.36it/s]
+6 prompts, lengths 7242-8064, max_len=8368, target KV 144 KiB/token -> 1.15 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=  7916    15.2 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx=  7242    15.1 tok/s acc=1.00 h2d/step=     0.0MB peak=19.0GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx=  8000    16.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx=  8064    22.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs= 1 p4 ctx=  7993    26.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p5 ctx=  8051    26.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=  7916    20.6 tok/s acc=2.23 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx=  7242    14.7 tok/s acc=1.59 h2d/step=     0.0MB peak=20.8GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx=  8000    22.0 tok/s acc=2.36 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx=  8064    18.3 tok/s acc=1.70 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p4 ctx=  7993    32.3 tok/s acc=2.22 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p5 ctx=  8051    75.8 tok/s acc=4.90 h2d/step=     0.0MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    13.6 tok/s acc=1.00 h2d/step=  1162.7MB peak=19.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    13.5 tok/s acc=1.00 h2d/step=  1072.8MB peak=19.0GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    14.3 tok/s acc=1.00 h2d/step=  1184.6MB peak=19.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    19.0 tok/s acc=1.00 h2d/step=  1194.0MB peak=19.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    21.8 tok/s acc=1.00 h2d/step=  1178.6MB peak=19.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    21.8 tok/s acc=1.00 h2d/step=  1192.1MB peak=19.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    39.1 tok/s acc=2.23 h2d/step=  1163.1MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    28.0 tok/s acc=1.59 h2d/step=  1072.8MB peak=21.0GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    41.2 tok/s acc=2.36 h2d/step=  1184.3MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    29.8 tok/s acc=1.70 h2d/step=  1195.5MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    38.9 tok/s acc=2.22 h2d/step=  1179.2MB peak=21.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    85.5 tok/s acc=4.90 h2d/step=  1192.0MB peak=21.4GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    22.4 tok/s acc=1.00 h2d/step=   872.2MB peak=19.3GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    22.3 tok/s acc=1.00 h2d/step=   804.6MB peak=19.1GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    22.3 tok/s acc=1.00 h2d/step=   888.5MB peak=19.6GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    22.4 tok/s acc=1.00 h2d/step=   895.6MB peak=19.9GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    22.5 tok/s acc=1.00 h2d/step=   884.0MB peak=20.1GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    22.4 tok/s acc=1.00 h2d/step=   894.1MB peak=19.6GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    40.2 tok/s acc=2.23 h2d/step=   872.6MB peak=21.9GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    28.6 tok/s acc=1.59 h2d/step=   804.7MB peak=21.9GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    42.3 tok/s acc=2.36 h2d/step=   888.4MB peak=22.2GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    30.5 tok/s acc=1.70 h2d/step=   896.7MB peak=22.5GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    39.7 tok/s acc=2.22 h2d/step=   884.6MB peak=22.8GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    87.9 tok/s acc=4.90 h2d/step=   894.4MB peak=22.5GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    23.1 tok/s acc=1.00 h2d/step=   581.6MB peak=20.8GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    22.9 tok/s acc=1.00 h2d/step=   536.5MB peak=20.4GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    23.0 tok/s acc=1.00 h2d/step=   592.4MB peak=21.0GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    23.1 tok/s acc=1.00 h2d/step=   597.1MB peak=21.6GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    23.1 tok/s acc=1.00 h2d/step=   589.5MB peak=22.2GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    23.0 tok/s acc=1.00 h2d/step=   596.2MB peak=22.2GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    40.9 tok/s acc=2.23 h2d/step=   582.2MB peak=23.7GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    29.3 tok/s acc=1.59 h2d/step=   536.6MB peak=23.9GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    43.4 tok/s acc=2.36 h2d/step=   592.5MB peak=23.7GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    31.2 tok/s acc=1.70 h2d/step=   598.0MB peak=24.3GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    40.9 tok/s acc=2.22 h2d/step=   590.0MB peak=24.8GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    90.4 tok/s acc=4.90 h2d/step=   596.7MB peak=25.4GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    23.9 tok/s acc=1.00 h2d/step=   291.1MB peak=22.2GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    23.8 tok/s acc=1.00 h2d/step=   268.4MB peak=22.9GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    23.9 tok/s acc=1.00 h2d/step=   296.3MB peak=23.9GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    23.8 tok/s acc=1.00 h2d/step=   298.7MB peak=24.6GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    23.9 tok/s acc=1.00 h2d/step=   294.9MB peak=23.1GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    23.9 tok/s acc=1.00 h2d/step=   298.2MB peak=24.0GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    42.4 tok/s acc=2.23 h2d/step=   291.7MB peak=25.7GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    30.2 tok/s acc=1.59 h2d/step=   268.5MB peak=25.7GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    44.9 tok/s acc=2.36 h2d/step=   296.5MB peak=26.8GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    32.3 tok/s acc=1.70 h2d/step=   299.2MB peak=27.7GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    42.0 tok/s acc=2.22 h2d/step=   295.4MB peak=27.1GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    92.8 tok/s acc=4.90 h2d/step=   299.0MB peak=26.9GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    24.3 tok/s acc=1.00 h2d/step=   129.7MB peak=25.7GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    24.3 tok/s acc=1.00 h2d/step=   119.4MB peak=26.6GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    24.3 tok/s acc=1.00 h2d/step=   131.9MB peak=20.2GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    24.3 tok/s acc=1.00 h2d/step=   132.9MB peak=21.2GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    24.5 tok/s acc=1.00 h2d/step=   131.3MB peak=22.2GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    24.4 tok/s acc=1.00 h2d/step=   132.7MB peak=23.2GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    43.1 tok/s acc=2.23 h2d/step=   130.3MB peak=23.3GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    30.7 tok/s acc=1.59 h2d/step=   119.5MB peak=23.9GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    45.8 tok/s acc=2.36 h2d/step=   132.1MB peak=24.5GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    32.9 tok/s acc=1.70 h2d/step=   133.2MB peak=24.3GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    43.0 tok/s acc=2.22 h2d/step=   131.7MB peak=25.3GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    95.0 tok/s acc=4.90 h2d/step=   133.6MB peak=26.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx=  7916    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx=  7242    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=22.0GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx=  8000    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=22.2GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx=  8064    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=22.2GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx=  7993    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=22.2GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx=  8051    25.0 tok/s acc=1.00 h2d/step=     0.0MB peak=22.2GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx=  7916    44.1 tok/s acc=2.23 h2d/step=     0.0MB peak=24.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx=  7242    31.4 tok/s acc=1.59 h2d/step=     0.0MB peak=23.9GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx=  8000    46.5 tok/s acc=2.36 h2d/step=     0.0MB peak=24.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx=  8064    33.5 tok/s acc=1.70 h2d/step=     0.0MB peak=24.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx=  7993    43.6 tok/s acc=2.22 h2d/step=     0.0MB peak=24.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx=  8051    96.6 tok/s acc=4.90 h2d/step=     0.0MB peak=24.3GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6745.54it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6381.51it/s]
+6 prompts, lengths 15892-16528, max_len=16832, target KV 144 KiB/token -> 2.31 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    15.2 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    15.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    19.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    26.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p4 ctx= 15892    23.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p5 ctx= 16528    18.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.5 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.2 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.6 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    31.9 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p4 ctx= 15892    23.7 tok/s acc=1.86 h2d/step=     0.0MB peak=25.1GiB match=True
+hbm        {}                                                                     bs=16 p5 ctx= 16528    16.6 tok/s acc=1.62 h2d/step=     0.0MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    13.6 tok/s acc=1.00 h2d/step=  2355.6MB peak=21.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    13.6 tok/s acc=1.00 h2d/step=  2421.4MB peak=21.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    16.9 tok/s acc=1.00 h2d/step=  2374.4MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    22.1 tok/s acc=1.00 h2d/step=  2368.2MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    19.7 tok/s acc=1.00 h2d/step=  2348.5MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    16.3 tok/s acc=1.00 h2d/step=  2442.4MB peak=21.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.1 tok/s acc=1.83 h2d/step=  2356.0MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    27.8 tok/s acc=1.58 h2d/step=  2422.3MB peak=25.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    31.5 tok/s acc=1.80 h2d/step=  2373.0MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    42.8 tok/s acc=2.45 h2d/step=  2367.9MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    32.6 tok/s acc=1.86 h2d/step=  2350.4MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    28.4 tok/s acc=1.62 h2d/step=  2442.6MB peak=25.7GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    22.4 tok/s acc=1.00 h2d/step=  1766.8MB peak=21.2GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    22.4 tok/s acc=1.00 h2d/step=  1816.2MB peak=21.8GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    22.5 tok/s acc=1.00 h2d/step=  1780.9MB peak=22.3GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    22.5 tok/s acc=1.00 h2d/step=  1776.3MB peak=22.9GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    22.4 tok/s acc=1.00 h2d/step=  1761.5MB peak=21.7GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    22.5 tok/s acc=1.00 h2d/step=  1831.9MB peak=22.4GiB match=False
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.8 tok/s acc=1.83 h2d/step=  1767.2MB peak=27.0GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.1 tok/s acc=1.58 h2d/step=  1816.9MB peak=27.2GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=  1780.0MB peak=27.6GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    43.7 tok/s acc=2.45 h2d/step=  1776.2MB peak=28.2GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    33.3 tok/s acc=1.86 h2d/step=  1763.0MB peak=27.5GiB match=True
+ours       {"resident_layers": 9, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    28.7 tok/s acc=1.62 h2d/step=  1832.2MB peak=28.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    23.3 tok/s acc=1.00 h2d/step=  1178.1MB peak=23.6GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    23.3 tok/s acc=1.00 h2d/step=  1211.0MB peak=24.8GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    23.3 tok/s acc=1.00 h2d/step=  1187.4MB peak=25.9GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    23.3 tok/s acc=1.00 h2d/step=  1184.3MB peak=27.0GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    23.3 tok/s acc=1.00 h2d/step=  1174.5MB peak=26.6GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    23.4 tok/s acc=1.00 h2d/step=  1221.4MB peak=25.9GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    33.1 tok/s acc=1.83 h2d/step=  1178.5MB peak=31.1GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.3 tok/s acc=1.58 h2d/step=  1211.6MB peak=30.2GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=  1187.0MB peak=31.1GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    44.0 tok/s acc=2.45 h2d/step=  1184.6MB peak=32.3GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    33.5 tok/s acc=1.86 h2d/step=  1175.7MB peak=33.3GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    28.9 tok/s acc=1.62 h2d/step=  1221.8MB peak=31.4GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    24.2 tok/s acc=1.00 h2d/step=   589.3MB peak=28.3GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    24.2 tok/s acc=1.00 h2d/step=   605.7MB peak=30.0GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    24.1 tok/s acc=1.00 h2d/step=   594.0MB peak=30.0GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    24.2 tok/s acc=1.00 h2d/step=   592.4MB peak=29.9GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    24.2 tok/s acc=1.00 h2d/step=   587.5MB peak=31.6GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    24.3 tok/s acc=1.00 h2d/step=   611.0MB peak=33.4GiB match=False
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    33.3 tok/s acc=1.83 h2d/step=   589.7MB peak=34.1GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.6 tok/s acc=1.58 h2d/step=   606.2MB peak=36.0GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=   594.0MB peak=37.5GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    44.3 tok/s acc=2.45 h2d/step=   592.9MB peak=36.6GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    33.9 tok/s acc=1.86 h2d/step=   588.3MB peak=35.8GiB match=True
+ours       {"resident_layers": 27, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    29.3 tok/s acc=1.62 h2d/step=   611.3MB peak=37.7GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    25.0 tok/s acc=1.00 h2d/step=   262.2MB peak=35.1GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    25.3 tok/s acc=1.00 h2d/step=   269.5MB peak=33.9GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    25.3 tok/s acc=1.00 h2d/step=   264.3MB peak=35.8GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    25.4 tok/s acc=1.00 h2d/step=   263.6MB peak=37.8GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    25.2 tok/s acc=1.00 h2d/step=   261.4MB peak=39.8GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    24.9 tok/s acc=1.00 h2d/step=   271.8MB peak=24.0GiB match=False
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    33.5 tok/s acc=1.83 h2d/step=   262.6MB peak=30.1GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.6 tok/s acc=1.58 h2d/step=   269.9MB peak=30.7GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=   264.5MB peak=30.1GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    44.3 tok/s acc=2.45 h2d/step=   264.2MB peak=32.0GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    33.9 tok/s acc=1.86 h2d/step=   262.0MB peak=34.0GiB match=True
+ours       {"resident_layers": 32, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    29.2 tok/s acc=1.62 h2d/step=   272.2MB peak=34.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p0 ctx= 15940    25.1 tok/s acc=1.00 h2d/step=     0.0MB peak=27.9GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p1 ctx= 16386    25.2 tok/s acc=1.00 h2d/step=     0.0MB peak=28.0GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p2 ctx= 16067    25.2 tok/s acc=1.00 h2d/step=     0.0MB peak=27.9GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p3 ctx= 16025    25.1 tok/s acc=1.00 h2d/step=     0.0MB peak=27.9GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p4 ctx= 15892    25.2 tok/s acc=1.00 h2d/step=     0.0MB peak=27.9GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs= 1 p5 ctx= 16528    25.2 tok/s acc=1.00 h2d/step=     0.0MB peak=28.0GiB match=False
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    33.5 tok/s acc=1.83 h2d/step=     0.0MB peak=32.0GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.6 tok/s acc=1.58 h2d/step=     0.0MB peak=32.3GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.1 tok/s acc=1.80 h2d/step=     0.0MB peak=32.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    44.4 tok/s acc=2.45 h2d/step=     0.0MB peak=32.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p4 ctx= 15892    34.0 tok/s acc=1.86 h2d/step=     0.0MB peak=32.0GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p5 ctx= 16528    29.1 tok/s acc=1.62 h2d/step=     0.0MB peak=32.3GiB match=True
+=== sweep finished in 27 min
+
+=== ablate  Sun 03:33 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6649.43it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6496.89it/s]
+4 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.7 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.3 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.8 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    32.2 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    31.7 tok/s acc=1.83 h2d/step=  2355.1MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    27.1 tok/s acc=1.58 h2d/step=  2421.5MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    30.4 tok/s acc=1.80 h2d/step=  2372.1MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    41.9 tok/s acc=2.45 h2d/step=  2366.6MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    31.6 tok/s acc=1.83 h2d/step=  2355.5MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    27.1 tok/s acc=1.58 h2d/step=  2421.9MB peak=25.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    30.5 tok/s acc=1.80 h2d/step=  2372.5MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 1, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    41.9 tok/s acc=2.45 h2d/step=  2367.2MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.7 tok/s acc=1.83 h2d/step=  2355.1MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.2 tok/s acc=1.58 h2d/step=  2421.5MB peak=25.7GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=  2372.1MB peak=25.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    43.8 tok/s acc=2.45 h2d/step=  2366.6MB peak=25.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.9 tok/s acc=1.83 h2d/step=  2356.0MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.4 tok/s acc=1.58 h2d/step=  2422.3MB peak=25.7GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.1 tok/s acc=1.80 h2d/step=  2373.0MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    43.8 tok/s acc=2.45 h2d/step=  2367.9MB peak=25.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.7 tok/s acc=1.83 h2d/step=  2355.1MB peak=25.7GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.3 tok/s acc=1.58 h2d/step=  2421.5MB peak=25.9GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=  2372.1MB peak=25.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": false, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    43.7 tok/s acc=2.45 h2d/step=  2366.6MB peak=25.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p0 ctx= 15940    32.8 tok/s acc=1.83 h2d/step=  2356.5MB peak=25.9GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p1 ctx= 16386    28.3 tok/s acc=1.58 h2d/step=  2422.7MB peak=26.1GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p2 ctx= 16067    32.0 tok/s acc=1.80 h2d/step=  2373.5MB peak=26.0GiB match=True
+ours       {"resident_layers": 0, "num_slots": 3, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64} bs=16 p3 ctx= 16025    43.4 tok/s acc=2.45 h2d/step=  2368.5MB peak=26.0GiB match=True
+=== ablate finished in 4 min
+
+=== analyze  Sun 03:37 ===
+## Table 2 values (paste into the report)
+
+| | PCIe (measured) | GH200 ratio (model) |
+|---|---|---|
+| Link bandwidth (GB/s) | 176.7 | 89.8 |
+| KV per sequence (GB) | 1.18 | 1.18 |
+| Fetch time per layer (ms) | 0.19 | 0.36 |
+| Ordinary step T_N (ms) | 34.9 | same |
+| Speculative step T_S (ms) | 62.9 | same |
+| Tokens per step tau | 2.52 | same |
+| Offload budget, ordinary | 0.03 | 0.99 |
+| Offload budget, speculative | 0.58 | 0.99 |
+| Speculative beats ordinary above | 0.00 | 0.00 |
+
+(Budget = largest offloaded fraction staying within 5% of ordinary decoding with nothing offloaded, 34.9 ms/token; 'none' = already above that with nothing offloaded. Crossover 'never' = speculative stays slower.)
+
+## Numbers for the text
+
+- All on GPU: ordinary 34.9 ms/token, speculative 28.5 ms/token -> speculative is 1.22x the speed of ordinary
+- Link-to-memory ratio: 176.7/864 = 1/5 (GH200: 1/10)
+- Per-layer fetch 0.19 ms on PCIe vs per-layer compute 0.97 ms (ordinary) / 1.75 ms (speculative); at GH200 ratio the fetch is 0.36 ms
+- Model validation (no fitted parameters): mean |error| 23.8%, max 60.6% over 12 measured configurations
+- Budgets on PCIe: measured ordinary 0.03, speculative 0.58; model ordinary 0.99, speculative 0.99
+- Budgets at GH200 ratio (model): ordinary 0.99, speculative 0.99
+- Speculative beats ordinary at the same offloaded fraction above: measured 0.00, model PCIe 0.00, model GH200 ratio 0.00
+- Offloaded runs matching all-GPU output token for token: 72/72
+- Prompts: 6, mean context while decoding 7993 tokens
+
+## Mean over prompts per configuration (R = layers kept on the GPU)
+
+|                             |   offload_fraction |   tpot_ms |   step_ms |   tau |   h2d_mb_per_step |
+|:----------------------------|-------------------:|----------:|----------:|------:|------------------:|
+| ('ordinary', 'hbm', 36)     |               0    |     34.87 |     34.87 |  1    |              0    |
+| ('ordinary', 'ours', 36)    |               0    |     35.91 |     35.91 |  1    |              0    |
+| ('ordinary', 'ours', 32)    |               0.11 |     39.26 |     39.26 |  1    |            129.68 |
+| ('ordinary', 'ours', 27)    |               0.25 |     46.84 |     46.84 |  1    |            291.41 |
+| ('ordinary', 'ours', 18)    |               0.49 |     60.18 |     60.18 |  1    |            582.52 |
+| ('ordinary', 'ours', 9)     |               0.74 |     73.39 |     73.39 |  1    |            873.63 |
+| ('ordinary', 'ours', 0)     |               0.98 |     89.02 |     89.02 |  1    |           1164.74 |
+| ('speculative', 'hbm', 36)  |               0    |     28.5  |     62.91 |  2.52 |              0    |
+| ('speculative', 'ours', 36) |               0    |     28.55 |     63.02 |  2.52 |              0    |
+| ('speculative', 'ours', 32) |               0.11 |     29.42 |     64.96 |  2.52 |            130.09 |
+| ('speculative', 'ours', 27) |               0.25 |     31.54 |     69.68 |  2.52 |            291.79 |
+| ('speculative', 'ours', 18) |               0.49 |     35.32 |     78.1  |  2.52 |            582.84 |
+| ('speculative', 'ours', 9)  |               0.74 |     39.11 |     86.53 |  2.52 |            873.89 |
+| ('speculative', 'ours', 0)  |               0.99 |     42.89 |     94.95 |  2.52 |           1164.94 |
+
+## Table 2 values (paste into the report)
+
+| | PCIe (measured) | GH200 ratio (model) |
+|---|---|---|
+| Link bandwidth (GB/s) | 176.7 | 30.0 |
+| KV per sequence (GB) | 1.18 | 1.18 |
+| Fetch time per layer (ms) | 0.19 | 1.09 |
+| Ordinary step T_N (ms) | 34.9 | same |
+| Speculative step T_S (ms) | 62.9 | same |
+| Tokens per step tau | 2.52 | same |
+| Offload budget, ordinary | 0.03 | 0.45 |
+| Offload budget, speculative | 0.58 | 0.99 |
+| Speculative beats ordinary above | 0.00 | 0.00 |
+
+(Budget = largest offloaded fraction staying within 5% of ordinary decoding with nothing offloaded, 34.9 ms/token; 'none' = already above that with nothing offloaded. Crossover 'never' = speculative stays slower.)
+
+## Numbers for the text
+
+- All on GPU: ordinary 34.9 ms/token, speculative 28.5 ms/token -> speculative is 1.22x the speed of ordinary
+- Link-to-memory ratio: 176.7/864 = 1/5 (GH200: 1/29)
+- Per-layer fetch 0.19 ms on PCIe vs per-layer compute 0.97 ms (ordinary) / 1.75 ms (speculative); at GH200 ratio the fetch is 1.09 ms
+- Model validation (no fitted parameters): mean |error| 23.8%, max 60.6% over 12 measured configurations
+- Budgets on PCIe: measured ordinary 0.03, speculative 0.58; model ordinary 0.99, speculative 0.99
+- Budgets at GH200 ratio (model): ordinary 0.45, speculative 0.99
+- Speculative beats ordinary at the same offloaded fraction above: measured 0.00, model PCIe 0.00, model GH200 ratio 0.00
+- Offloaded runs matching all-GPU output token for token: 72/72
+- Prompts: 6, mean context while decoding 7993 tokens
+
+## Mean over prompts per configuration (R = layers kept on the GPU)
+
+|                             |   offload_fraction |   tpot_ms |   step_ms |   tau |   h2d_mb_per_step |
+|:----------------------------|-------------------:|----------:|----------:|------:|------------------:|
+| ('ordinary', 'hbm', 36)     |               0    |     34.87 |     34.87 |  1    |              0    |
+| ('ordinary', 'ours', 36)    |               0    |     35.91 |     35.91 |  1    |              0    |
+| ('ordinary', 'ours', 32)    |               0.11 |     39.26 |     39.26 |  1    |            129.68 |
+| ('ordinary', 'ours', 27)    |               0.25 |     46.84 |     46.84 |  1    |            291.41 |
+| ('ordinary', 'ours', 18)    |               0.49 |     60.18 |     60.18 |  1    |            582.52 |
+| ('ordinary', 'ours', 9)     |               0.74 |     73.39 |     73.39 |  1    |            873.63 |
+| ('ordinary', 'ours', 0)     |               0.98 |     89.02 |     89.02 |  1    |           1164.74 |
+| ('speculative', 'hbm', 36)  |               0    |     28.5  |     62.91 |  2.52 |              0    |
+| ('speculative', 'ours', 36) |               0    |     28.55 |     63.02 |  2.52 |              0    |
+| ('speculative', 'ours', 32) |               0.11 |     29.42 |     64.96 |  2.52 |            130.09 |
+| ('speculative', 'ours', 27) |               0.25 |     31.54 |     69.68 |  2.52 |            291.79 |
+| ('speculative', 'ours', 18) |               0.49 |     35.32 |     78.1  |  2.52 |            582.84 |
+| ('speculative', 'ours', 9)  |               0.74 |     39.11 |     86.53 |  2.52 |            873.89 |
+| ('speculative', 'ours', 0)  |               0.99 |     42.89 |     94.95 |  2.52 |           1164.94 |
+
+Fig. 1 for the report: figs/fig3_breakeven.png   numbers: figs/tables.md
+=== analyze finished in 0 min
+
+All requested stages done. Log: logs/run_all_1115_0231.log
+Remember to STOP the instance in the AWS console when you are finished.

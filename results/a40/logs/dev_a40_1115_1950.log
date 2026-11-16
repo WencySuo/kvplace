@@ -1,0 +1,425 @@
+=== gate  2026-11-15T19:50:53Z
+device=cuda
+[1] randomized crop stress vs DynamicCache (max |logit diff|):
+  OK  ondemand         diff=0.00e+00 offload_fraction=0.87
+  OK  ours/2slot       diff=0.00e+00 offload_fraction=0.81
+  OK  ours/3slot,R=2   diff=0.00e+00 offload_fraction=0.59
+  OK  ours/tail0       diff=0.00e+00 offload_fraction=1.00
+  OK  ours/noPhase     diff=0.00e+00 offload_fraction=0.87
+  OK  ours/R=2,last    diff=0.00e+00 offload_fraction=0.53
+  OK  zerocopy         diff=0.00e+00 offload_fraction=0.90
+  OK  zerocopy/R=3     diff=0.00e+00 offload_fraction=0.45
+  OK  zerocopy/tail0   diff=0.00e+00 offload_fraction=1.00
+  OK  zc-split         diff=3.80e-07 offload_fraction=0.83
+  OK  zc-split/tail0   diff=3.87e-07 offload_fraction=1.00
+  OK  zc-split/tail300 diff=3.73e-07 offload_fraction=0.46
+  OK  zc-split/R=3     diff=3.87e-07 offload_fraction=0.43
+  OK  hbm/prealloc     diff=0.00e+00 offload_fraction=0.00
+  OK  ours/R=2,prealloc diff=0.00e+00 offload_fraction=0.57
+  OK  ours/R=6,prealloc diff=0.00e+00 offload_fraction=0.00
+  OK  zerocopy/R=3,prealloc diff=0.00e+00 offload_fraction=0.45
+[2] dflash_generate end to end (greedy):
+  hbm              tokens= 300 mean_accept=1.00 h2d=   0.00MB d2h=  0.00MB suppressed= 0.00MB
+  hf_offload       tokens= 300 mean_accept=1.00 h2d= 161.53MB d2h=167.78MB suppressed= 0.00MB
+  ondemand         tokens= 300 mean_accept=1.00 h2d= 117.12MB d2h=  0.60MB suppressed= 6.73MB
+  ours/2slot       tokens= 300 mean_accept=1.00 h2d= 117.32MB d2h=  0.60MB suppressed= 6.73MB
+  ours/3slot,R=2   tokens= 300 mean_accept=1.00 h2d=  39.34MB d2h=  0.40MB suppressed= 4.49MB
+  ours/tail0       tokens= 300 mean_accept=1.00 h2d= 160.54MB d2h=  0.77MB suppressed= 6.73MB
+  ours/noPhase     tokens= 300 mean_accept=1.00 h2d= 117.12MB d2h=  0.60MB suppressed= 6.73MB
+  ours/R=2,last    tokens= 300 mean_accept=1.00 h2d=  78.28MB d2h=  0.40MB suppressed= 4.49MB
+  zerocopy         tokens= 300 mean_accept=1.00 h2d= 167.47MB d2h=  0.21MB suppressed= 6.73MB
+  zerocopy/R=3     tokens= 300 mean_accept=1.00 h2d=  83.74MB d2h=  0.10MB suppressed= 3.36MB
+  zerocopy/tail0   tokens= 300 mean_accept=1.00 h2d= 167.47MB d2h=  0.31MB suppressed= 6.73MB
+  zc-split         tokens= 300 mean_accept=1.00 h2d= 117.12MB d2h=  0.60MB suppressed= 6.73MB
+  zc-split/tail0   tokens= 300 mean_accept=1.00 h2d= 160.28MB d2h=  0.77MB suppressed= 6.73MB
+  zc-split/tail300 tokens= 300 mean_accept=1.00 h2d=  20.94MB d2h=  0.29MB suppressed= 6.73MB
+  zc-split/R=3     tokens= 300 mean_accept=1.00 h2d=  58.56MB d2h=  0.30MB suppressed= 3.36MB
+  hbm/prealloc     tokens= 300 mean_accept=1.00 h2d=   0.00MB d2h=  0.00MB suppressed= 0.00MB
+  ours/R=2,prealloc tokens= 300 mean_accept=1.00 h2d=  78.28MB d2h=  0.40MB suppressed= 4.49MB
+  ours/R=6,prealloc tokens= 300 mean_accept=1.00 h2d=   0.00MB d2h=  0.00MB suppressed= 0.00MB
+  zerocopy/R=3,prealloc tokens= 300 mean_accept=1.00 h2d=  83.74MB d2h=  0.10MB suppressed= 3.36MB
+  outputs identical across arms: True
+=== gate ok in 1 min
+=== kernel  2026-11-15T19:51:57Z
+
+=== hostmem  Sun 19:51 ===
+host view OK: {'type': 'host', 'device': 0, 'host_ptr_eq_dev_ptr': True}
+read_reduce OK, checksum 0
+=== hostmem ok in 0 min
+
+=== kernel  Sun 19:52 ===
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cpu] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cpu] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kv_host_attn tests done
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cuda] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cuda] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.bfloat16: max abs diff 2.61e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.float16: max abs diff 2.85e-05
+kernel [cuda] S=16385 Q=16 nsplit=None torch.bfloat16: max abs diff 1.59e-04
+kv_host_attn tests done
+{'S': 8192, 'place': 'hbm', 'impl': 'kernel', 'ms': 0.277, 'gbps': 121.3, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 0.829, 'gbps': 40.5, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.1, 'gbps': 336.0, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'kernel', 'ms': 2.179, 'gbps': 15.4, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 13.885, 'gbps': 2.4, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 10.708, 'gbps': 3.1, 'kernel_err': '2.3e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'kernel', 'ms': 3.326, 'gbps': 20.2, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 1.888, 'gbps': 35.5, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.181, 'gbps': 370.4, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'kernel', 'ms': 4.605, 'gbps': 14.6, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 27.622, 'gbps': 2.4, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 21.692, 'gbps': 3.1, 'kernel_err': '1.6e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'kernel', 'ms': 0.365, 'gbps': 368.2, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 3.761, 'gbps': 35.7, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.347, 'gbps': 386.4, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'kernel', 'ms': 10.431, 'gbps': 12.9, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 55.672, 'gbps': 2.4, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 47.452, 'gbps': 2.8, 'kernel_err': '1.4e-04'}
+=== kernel ok in 0 min
+All stages attempted, rc=0. Log: logs/followups_1115_1951.log
+=== kernel ok in 0 min
+=== profile  2026-11-15T19:52:21Z
+
+=== profile_gqa  Sun 19:52 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  37%|███▋      | 147/399 [00:00<00:00, 1378.44it/s]Loading weights:  71%|███████▏  | 285/399 [00:00<00:00, 1054.22it/s]Loading weights:  99%|█████████▉| 395/399 [00:00<00:00, 956.52it/s] Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1014.15it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 5734.38it/s]
+USDT:2026-11-15 19:52:40 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:52:45 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:52:59 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:53:03 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:53:11 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:53:16 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:53:30 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:53:33 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:53:42 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:53:47 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:54:03 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:54:07 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs=16: tpot   89.40 ms clean | step  131.92 ms profiled, GPU 123.95 ms (94.0% busy), memcpy  0.15 ms, cmdbuf-full  0.57 ms,   2588 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.032 ms/step  x  82.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.819 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.919 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.351 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.169 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.307 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+ours      R=36 bs=16: tpot   88.80 ms clean | step  128.95 ms profiled, GPU 124.79 ms (96.8% busy), memcpy  0.16 ms, cmdbuf-full -0.71 ms,   2588 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.033 ms/step  x  82.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.813 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.921 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.351 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.171 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.306 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+ours      R= 0 bs=16: tpot   83.83 ms clean | step  122.18 ms profiled, GPU 115.99 ms (94.9% busy), memcpy 98.54 ms, cmdbuf-full  0.23 ms,   2660 launches, malloc 0.0 free 0.0 sync 1.0/step
+       98.213 ms/step  x  72.0  Memcpy HtoD (Pinned -> Device)
+       35.056 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.895 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       14.538 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.557 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.627 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+USDT:2026-11-15 19:54:28 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:54:45 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:55:00 2655:2655 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:55:04 2655:2655 SyncActivityProfilerHandler.cpp:59] profiler_stop
+zerocopy  R= 0 bs=16: tpot  682.87 ms clean | step  973.39 ms profiled, GPU 966.82 ms (99.3% busy), memcpy  0.15 ms, cmdbuf-full 102.08 ms,   2660 launches, malloc 0.0 free 0.0 sync 1.0/step
+      887.212 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.704 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.924 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.161 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.324 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.266 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  56%|█████▋    | 225/399 [00:00<00:00, 2246.04it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 2133.43it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 7144.06it/s]
+USDT:2026-11-15 19:55:28 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:55:35 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:55:50 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:55:54 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:56:04 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:56:10 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:56:27 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:56:30 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:56:41 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:56:47 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:57:06 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:57:09 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs=16: tpot  153.39 ms clean | step  238.63 ms profiled, GPU 232.56 ms (97.5% busy), memcpy  0.15 ms, cmdbuf-full -16.85 ms,   3245 launches, malloc 0.1 free 0.0 sync 1.0/step
+       67.046 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       33.974 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.760 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.944 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.367 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.296 ms/step  x 277.0  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+ours      R=36 bs=16: tpot  152.61 ms clean | step  237.64 ms profiled, GPU 232.83 ms (98.0% busy), memcpy  0.15 ms, cmdbuf-full 16.04 ms,   3245 launches, malloc 0.0 free 0.0 sync 1.0/step
+       67.042 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       34.069 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.772 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.941 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.385 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.296 ms/step  x 277.0  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+ours      R= 0 bs=16: tpot  148.98 ms clean | step  231.93 ms profiled, GPU 226.68 ms (97.7% busy), memcpy 119.68 ms, cmdbuf-full 22.51 ms,   3317 launches, malloc 0.0 free 0.0 sync 1.0/step
+      119.477 ms/step  x  72.0  Memcpy HtoD (Pinned -> Device)
+       69.563 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       35.133 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.812 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.983 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.712 ms/step  x 277.0  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+USDT:2026-11-15 19:57:21 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:57:29 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:57:48 2775:2775 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:57:52 2775:2775 SyncActivityProfilerHandler.cpp:59] profiler_stop
+zerocopy  R= 0 bs=16: tpot  218.07 ms clean | step  340.19 ms profiled, GPU 335.30 ms (98.6% busy), memcpy  0.15 ms, cmdbuf-full 42.65 ms,   3317 launches, malloc 0.0 free 0.0 sync 1.0/step
+      125.514 ms/step  x 277.0  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+       67.294 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       33.938 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.714 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.949 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       12.617 ms/step  x  46.8  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  38%|███▊      | 152/399 [00:00<00:00, 1517.19it/s]Loading weights:  76%|███████▌  | 304/399 [00:00<00:00, 1246.13it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1235.27it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 1710.71it/s]
+USDT:2026-11-15 19:58:16 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:58:21 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:58:36 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:58:39 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:58:47 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:58:52 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:59:07 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:59:10 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:59:20 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:59:25 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 19:59:41 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 19:59:45 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs=16: tpot   67.40 ms clean | step  102.15 ms profiled, GPU  94.05 ms (92.1% busy), memcpy  0.16 ms, cmdbuf-full -6.98 ms,   2797 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.067 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.903 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.381 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.172 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.306 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        1.851 ms/step  x  83.4  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x6_tn
+ours      R=36 bs=16: tpot   67.16 ms clean | step   98.20 ms profiled, GPU  94.45 ms (96.2% busy), memcpy  0.16 ms, cmdbuf-full  3.93 ms,   2797 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.063 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.903 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.389 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+       13.172 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.308 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        1.850 ms/step  x  83.4  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x6_tn
+ours      R= 0 bs=16: tpot   78.99 ms clean | step  113.02 ms profiled, GPU  85.06 ms (75.3% busy), memcpy 96.32 ms, cmdbuf-full  2.23 ms,   2869 launches, malloc 0.0 free 0.0 sync 1.0/step
+       95.958 ms/step  x  72.0  Memcpy HtoD (Pinned -> Device)
+       34.091 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       14.560 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.559 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.619 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.284 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+USDT:2026-11-15 19:59:54 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:00:00 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:00:18 2883:2883 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:00:22 2883:2883 SyncActivityProfilerHandler.cpp:59] profiler_stop
+zerocopy  R= 0 bs=16: tpot  112.86 ms clean | step  163.09 ms profiled, GPU 159.39 ms (97.7% busy), memcpy  0.19 ms, cmdbuf-full 12.57 ms,   2869 launches, malloc 0.0 free 0.0 sync 1.0/step
+      109.092 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       14.056 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.161 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.324 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.264 ms/step  x 164.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.946 ms/step  x   0.7  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 137/399 [00:00<00:00, 1343.26it/s]Loading weights:  68%|██████▊   | 272/399 [00:00<00:00, 1087.86it/s]Loading weights:  96%|█████████▌| 384/399 [00:00<00:00, 1095.88it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1117.78it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 1892.35it/s]
+USDT:2026-11-15 20:00:46 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:00:51 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:01:00 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:01:03 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:01:11 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:01:17 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:01:30 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:01:33 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:01:40 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:01:44 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:01:52 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:01:55 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:02:03 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:02:08 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:02:23 2991:2991 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:02:26 2991:2991 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   35.74 ms clean | step   79.91 ms profiled, GPU  38.16 ms (47.8% busy), memcpy  0.05 ms, cmdbuf-full  0.71 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.115 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.894 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.084 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.214 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.290 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+        1.167 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+hbm       R= 0 bs=16: tpot   82.03 ms clean | step  117.48 ms profiled, GPU 114.20 ms (97.2% busy), memcpy  0.16 ms, cmdbuf-full -11.95 ms,   2588 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.052 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.811 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.920 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.171 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.308 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.001 ms/step  x  92.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+ours      R=36 bs= 1: tpot   36.60 ms clean | step   55.13 ms profiled, GPU  38.28 ms (69.4% busy), memcpy  0.05 ms, cmdbuf-full -6.21 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.128 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.899 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.089 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.213 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.292 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+        1.103 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+ours      R=36 bs=16: tpot   80.59 ms clean | step  120.23 ms profiled, GPU 114.21 ms (95.0% busy), memcpy  0.16 ms, cmdbuf-full  9.26 ms,   2588 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.053 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       31.836 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.921 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.172 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.308 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        1.990 ms/step  x  92.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  41%|████▏     | 165/399 [00:00<00:00, 1612.29it/s]Loading weights:  82%|████████▏ | 327/399 [00:00<00:00, 1167.77it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1205.92it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 4151.22it/s]
+USDT:2026-11-15 20:02:49 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:02:53 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:03:02 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:03:05 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:03:14 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:03:20 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:03:36 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:03:39 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:03:47 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:03:51 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:04:01 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:04:05 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:04:14 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:04:20 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:04:37 3097:3097 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:04:40 3097:3097 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   37.78 ms clean | step   81.58 ms profiled, GPU  37.75 ms (46.3% busy), memcpy  0.05 ms, cmdbuf-full -31.41 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.116 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.893 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.084 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.213 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.291 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+        0.825 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+hbm       R= 0 bs=16: tpot  145.31 ms clean | step  226.40 ms profiled, GPU 222.30 ms (98.2% busy), memcpy  0.15 ms, cmdbuf-full 11.02 ms,   3245 launches, malloc 0.0 free 0.0 sync 1.0/step
+       67.067 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       33.986 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.853 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.938 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       12.674 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl<at::native::direct
+       12.622 ms/step  x  46.8  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+ours      R=36 bs= 1: tpot   52.07 ms clean | step   65.92 ms profiled, GPU  38.95 ms (59.1% busy), memcpy  0.05 ms, cmdbuf-full  1.99 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.125 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.896 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.089 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.213 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.356 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+        1.291 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+ours      R=36 bs=16: tpot  145.36 ms clean | step  226.06 ms profiled, GPU 221.93 ms (98.2% busy), memcpy  0.15 ms, cmdbuf-full -9.43 ms,   3245 launches, malloc 0.0 free 0.0 sync 1.0/step
+       67.055 ms/step  x  72.0  void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native:
+       33.867 ms/step  x  76.0  void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, 
+       17.869 ms/step  x  16.6  void gemmSN_TN_kernel<float, 128, 16, 2, 4, 8, 9, false, cublasGemvTensorStridedBatched<fl
+       13.941 ms/step  x 123.2  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       12.672 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl<at::native::direct
+       12.624 ms/step  x  46.8  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  87%|████████▋ | 348/399 [00:00<00:00, 3470.33it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 3272.62it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 3475.48it/s]
+USDT:2026-11-15 20:05:02 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:05:06 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:05:13 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:05:16 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:05:23 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:05:28 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:05:43 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:05:46 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:05:53 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:05:57 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:06:05 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:06:09 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:06:16 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:06:20 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 20:06:35 3202:3202 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 20:06:38 3202:3202 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   35.69 ms clean | step   65.67 ms profiled, GPU  37.67 ms (57.4% busy), memcpy  0.05 ms, cmdbuf-full -33.55 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.120 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.894 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.086 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.213 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.292 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+        0.771 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+hbm       R= 0 bs=16: tpot   59.20 ms clean | step   98.99 ms profiled, GPU  83.48 ms (84.3% busy), memcpy  0.15 ms, cmdbuf-full -3.73 ms,   2797 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.046 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.898 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.172 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.308 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.093 ms/step  x   0.7  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+        2.006 ms/step  x  92.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+ours      R=36 bs= 1: tpot   37.17 ms clean | step   56.90 ms profiled, GPU  38.39 ms (67.5% busy), memcpy  0.05 ms, cmdbuf-full 16.19 ms,   2074 launches, malloc 0.0 free 0.0 sync 1.0/step
+       13.127 ms/step  x  72.0  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+       11.898 ms/step  x 108.0  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x5_tn
+        4.089 ms/step  x  36.0  void pytorch_flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<128, 64, 128, 4, fals
+        2.213 ms/step  x   1.0  void gemv2T_kernel_val<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, 128, 
+        1.292 ms/step  x  72.0  std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv
+        1.100 ms/step  x   0.0  void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x128_32x3_tn_align8
+ours      R=36 bs=16: tpot   59.48 ms clean | step   86.36 ms profiled, GPU  83.07 ms (96.2% busy), memcpy  0.16 ms, cmdbuf-full -6.05 ms,   2797 launches, malloc 0.0 free 0.0 sync 1.0/step
+       34.039 ms/step  x  36.0  fmha_cutlassF_bf16_aligned_64x128_rf_sm80(PyTorchMemEffAttention::AttentionKernel<cutlass:
+       13.900 ms/step  x 123.1  ampere_bf16_s16816gemm_bf16_64x64_sliced1x2_ldg8_f2f_stages_64x6_tn
+       13.172 ms/step  x  49.6  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x5_tn
+        6.308 ms/step  x  35.1  void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8
+        2.004 ms/step  x  92.0  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        1.851 ms/step  x  83.4  ampere_bf16_s16816gemm_bf16_64x64_ldg8_f2f_stages_64x6_tn
+=== profile_gqa ok in 14 min
+All stages attempted, rc=0. Log: logs/followups_1115_1952.log
+=== profile ok in 14 min
+=== prealloc  2026-11-15T20:06:42Z
+
+=== prealloc  Sun 20:06 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 5244.36it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 7997.56it/s]
+2 prompts, lengths 15940-16386, max_len=16675, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    21.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    21.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    20.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    20.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  90%|█████████ | 361/399 [00:00<00:00, 3609.13it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 3619.73it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 8427.55it/s]
+2 prompts, lengths 15940-16386, max_len=16675, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {"prealloc": true}                                                     bs= 1 p0 ctx= 15940    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {"prealloc": true}                                                     bs= 1 p1 ctx= 16386    25.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "prealloc": true} bs= 1 p0 ctx= 15940    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "prealloc": true} bs= 1 p1 ctx= 16386    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+=== prealloc ok in 2 min
+All stages attempted, rc=0. Log: logs/followups_1115_2006.log
+=== prealloc ok in 2 min
+=== zc_check  2026-11-15T20:09:08Z
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  44%|████▍     | 177/399 [00:00<00:00, 1726.67it/s]Loading weights:  90%|████████▉ | 358/399 [00:00<00:00, 1767.49it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1818.80it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 8026.58it/s]
+1 prompts, lengths 7916-7916, max_len=8092, target KV 144 KiB/token -> 1.11 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=  7916    23.8 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=  7916    27.5 tok/s acc=2.19 h2d/step=     0.0MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx=  7916    16.3 tok/s acc=1.00 h2d/step=  1162.7MB peak=19.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx=  7916    28.2 tok/s acc=2.19 h2d/step=  1162.9MB peak=21.3GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "split_attn": false} bs= 1 p0 ctx=  7916     6.1 tok/s acc=1.00 h2d/step=  1176.0MB peak=19.1GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "split_attn": false} bs=16 p0 ctx=  7916     4.2 tok/s acc=2.19 h2d/step=  1177.4MB peak=21.2GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "split_attn": true} bs= 1 p0 ctx=  7916     4.1 tok/s acc=1.00 h2d/step=  1162.5MB peak=19.2GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "split_attn": true} bs=16 p0 ctx=  7916     5.0 tok/s acc=2.40 h2d/step=  1162.5MB peak=21.2GiB match=False
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  93%|█████████▎| 373/399 [00:00<00:00, 3714.45it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 3675.31it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 3713.64it/s]
+1 prompts, lengths 7916-7916, max_len=8092, target KV 144 KiB/token -> 1.11 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=  7916    23.4 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=  7916    27.5 tok/s acc=2.19 h2d/step=     0.0MB peak=21.2GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first", "split_attn": true} bs= 1 p0 ctx=  7916     5.2 tok/s acc=1.00 h2d/step=   870.0MB peak=19.1GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first", "split_attn": true} bs=16 p0 ctx=  7916     5.7 tok/s acc=2.15 h2d/step=   869.2MB peak=21.5GiB match=True
+=== zc_check ok in 4 min
+=== summarize  2026-11-15T20:13:08Z
+/workspace/cs2430_project/summarize_followups.py:30: Pandas4Warning: 'bool' is not supported as a fill value for float64 dtype. In a future version, calling fillna with an incompatible value will raise. Explicitly cast to a common dtype before filling.
+  df["split"] = df["split_attn"].fillna(False).astype(int) if "split_attn" in df else 0
+wrote results/followups_summary.md
+=== summarize ok in 0 min

@@ -1,0 +1,44 @@
+
+=== hostmem  Sun 19:51 ===
+host view OK: {'type': 'host', 'device': 0, 'host_ptr_eq_dev_ptr': True}
+read_reduce OK, checksum 0
+=== hostmem ok in 0 min
+
+=== kernel  Sun 19:52 ===
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cpu] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cpu] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cpu] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kv_host_attn tests done
+reference vs SDPA (fp32, causal 16-block over prefix+block, split-K LSE merge): max abs diff 5.07e-07
+uneven split merge vs unsplit: max abs diff 3.58e-07
+kernel [cuda] S=300 Q=16 nsplit=1 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=300 Q=16 nsplit=3 torch.float16: max abs diff 1.77e-04
+kernel [cuda] S=200 Q=5 nsplit=2 torch.float16: max abs diff 1.72e-04
+kernel [cuda] S=130 Q=1 nsplit=2 torch.float16: max abs diff 2.27e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.bfloat16: max abs diff 2.61e-04
+kernel [cuda] S=8192 Q=16 nsplit=None torch.float16: max abs diff 2.85e-05
+kernel [cuda] S=16385 Q=16 nsplit=None torch.bfloat16: max abs diff 1.59e-04
+kv_host_attn tests done
+{'S': 8192, 'place': 'hbm', 'impl': 'kernel', 'ms': 0.277, 'gbps': 121.3, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 0.829, 'gbps': 40.5, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.1, 'gbps': 336.0, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'kernel', 'ms': 2.179, 'gbps': 15.4, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 13.885, 'gbps': 2.4, 'kernel_err': '2.3e-04'}
+{'S': 8192, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 10.708, 'gbps': 3.1, 'kernel_err': '2.3e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'kernel', 'ms': 3.326, 'gbps': 20.2, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 1.888, 'gbps': 35.5, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.181, 'gbps': 370.4, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'kernel', 'ms': 4.605, 'gbps': 14.6, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 27.622, 'gbps': 2.4, 'kernel_err': '1.6e-04'}
+{'S': 16384, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 21.692, 'gbps': 3.1, 'kernel_err': '1.6e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'kernel', 'ms': 0.365, 'gbps': 368.2, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'sdpa_repeat_kv_mask', 'ms': 3.761, 'gbps': 35.7, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'hbm', 'impl': 'sdpa_gqa_nomask', 'ms': 0.347, 'gbps': 386.4, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'kernel', 'ms': 10.431, 'gbps': 12.9, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'sdpa_repeat_kv_mask', 'ms': 55.672, 'gbps': 2.4, 'kernel_err': '1.4e-04'}
+{'S': 32768, 'place': 'host', 'impl': 'sdpa_gqa_nomask', 'ms': 47.452, 'gbps': 2.8, 'kernel_err': '1.4e-04'}
+=== kernel ok in 0 min
+All stages attempted, rc=0. Log: logs/followups_1115_1951.log

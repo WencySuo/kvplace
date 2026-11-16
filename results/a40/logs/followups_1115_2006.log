@@ -1,0 +1,20 @@
+
+=== prealloc  Sun 20:06 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 5244.36it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 7997.56it/s]
+2 prompts, lengths 15940-16386, max_len=16675, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    21.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    21.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    20.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    20.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  90%|█████████ | 361/399 [00:00<00:00, 3609.13it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 3619.73it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 8427.55it/s]
+2 prompts, lengths 15940-16386, max_len=16675, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {"prealloc": true}                                                     bs= 1 p0 ctx= 15940    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {"prealloc": true}                                                     bs= 1 p1 ctx= 16386    25.1 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "prealloc": true} bs= 1 p0 ctx= 15940    25.3 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+ours       {"resident_layers": 36, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first", "prealloc": true} bs= 1 p1 ctx= 16386    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+=== prealloc ok in 2 min
+All stages attempted, rc=0. Log: logs/followups_1115_2006.log

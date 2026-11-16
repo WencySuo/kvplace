@@ -1,0 +1,5 @@
+
+=== profile_gqa  Sun 19:49 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  37%|███▋      | 146/399 [00:00<00:00, 1457.94it/s]Loading weights:  73%|███████▎  | 292/399 [00:00<00:00, 978.24it/s] Loading weights: 100%|██████████| 399/399 [00:00<00:00, 1123.47it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 7759.80it/s]

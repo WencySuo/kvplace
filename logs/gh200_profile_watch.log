@@ -1,0 +1,7 @@
+2026-11-14 23:32:55 watchdog start (poll 300s, stall 1200s, key file: absent)
+2026-11-14 23:32:55 status='EXIT=0 2026-11-15T04:32:55Z' tmux=down done=[ablate analyze arms env f_evict f_hostmem f_layers f_profile f_smread f_summarize f_zc16 f_zc32 f_zc8 linkbench pilot repro setup sweep test ] log=followups_1115_0430.log size=9623 gpu='0 %, 2 MiB' errs=0 |  2 min  === summarize  Sun 04:32 === wrote results/followups_summary.md === summarize ok in 0 min All stages attempted, rc=0. Log: logs/followups_1115_0430.log 
+2026-11-14 23:32:55 job finished OK
+2026-11-14 23:32:56 saved copy on persistent filesystem: /home/ubuntu/cs243/cs2430_gh200_1115_0432
+2026-11-14 23:33:39 pulled results to /Users/wencysuo/code/kvplace/results/gh200
+2026-11-14 23:33:39 instance kept running per user request (no terminate)
+2026-11-14 23:33:39 EXIT: done

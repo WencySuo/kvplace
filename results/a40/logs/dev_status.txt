@@ -1,0 +1,12 @@
+START 2026-11-15T19:48:28Z
+FAILED gate
+OK kernel
+RESTART 2026-11-15T19:50:52Z
+START 2026-11-15T19:50:53Z
+OK gate
+OK kernel
+OK profile
+OK prealloc
+OK zc_check
+OK summarize
+EXIT=0 2026-11-15T20:13:08Z

@@ -4,3 +4,7 @@ __pycache__/
 .pytest_cache/
 aws/.instance
 .DS_Store
+
+# large profiler traces stay local
+.venv/
+**/profile_traces/

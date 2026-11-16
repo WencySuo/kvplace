@@ -1,0 +1,357 @@
+
+=== hostmem  Sun 03:45 ===
+host view OK: {'type': 'host', 'device': 0, 'host_ptr_eq_dev_ptr': True}
+read_reduce OK, checksum 0
+=== hostmem ok in 0 min
+
+=== smread  Sun 03:45 ===
+host view OK: {'type': 'host', 'device': 0, 'host_ptr_eq_dev_ptr': True}
+read_reduce OK, checksum 0
+pointer attrs: {'type': 'host', 'device': 0, 'host_ptr_eq_dev_ptr': True}
+dma_h2d   1 GiB:   350.1 GB/s
+sm_read      16 blocks x 256 thr:    78.0 GB/s
+sm_read      64 blocks x 256 thr:   204.7 GB/s
+sm_read     132 blocks x 256 thr:   281.3 GB/s
+sm_read     264 blocks x 256 thr:   332.2 GB/s
+sm_read     528 blocks x 256 thr:   322.4 GB/s
+sm_read    1056 blocks x 256 thr:   315.8 GB/s
+sm_read     132 blocks from HBM:  1214.1 GB/s
+sm_read    1056 blocks from HBM:  3570.0 GB/s
+sm_write  1 GiB (copy_ kernel HBM->host):   297.8 GB/s
+sdpa q=1  S=  8192 hbm :   0.031 ms   1082.3 GB/s effective
+sdpa q=16 S=  8192 hbm  (repeat_kv+mask):   0.368 ms     91.3 GB/s effective
+sdpa q=16 S=  8192 hbm  (enable_gqa, no mask):   0.104 ms    321.6 GB/s effective
+sdpa q=1  S=  8192 host:   0.106 ms    315.7 GB/s effective
+sdpa q=16 S=  8192 host (repeat_kv+mask):   0.659 ms     50.9 GB/s effective
+sdpa q=16 S=  8192 host (enable_gqa, no mask):   0.329 ms    101.9 GB/s effective
+sdpa q=1  S= 16384 hbm :   0.034 ms   1999.6 GB/s effective
+sdpa q=16 S= 16384 hbm  (repeat_kv+mask):   0.710 ms     94.5 GB/s effective
+sdpa q=16 S= 16384 hbm  (enable_gqa, no mask):   0.199 ms    337.8 GB/s effective
+sdpa q=1  S= 16384 host:   0.203 ms    331.1 GB/s effective
+sdpa q=16 S= 16384 host (repeat_kv+mask):   1.346 ms     49.9 GB/s effective
+sdpa q=16 S= 16384 host (enable_gqa, no mask):   0.648 ms    103.6 GB/s effective
+sdpa q=1  S= 32768 hbm :   0.047 ms   2846.9 GB/s effective
+sdpa q=16 S= 32768 hbm  (repeat_kv+mask):   1.396 ms     96.1 GB/s effective
+sdpa q=16 S= 32768 hbm  (enable_gqa, no mask):   0.386 ms    348.1 GB/s effective
+sdpa q=1  S= 32768 host:   0.402 ms    333.7 GB/s effective
+sdpa q=16 S= 32768 host (repeat_kv+mask):   2.730 ms     49.2 GB/s effective
+sdpa q=16 S= 32768 host (enable_gqa, no mask):   1.285 ms    104.4 GB/s effective
+wrote results/sm_read_NVIDIA_GH200_480GB.csv
+=== smread ok in 0 min
+
+=== profile  Sun 03:45 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6523.53it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6345.06it/s]
+USDT:2026-11-15 03:45:19 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:45:20 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:45:30 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:45:32 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:45:45 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:45:46 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:45:55 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:45:57 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:46:12 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:46:13 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:46:23 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:46:25 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+hbm       R= 0 bs= 1: tpot   59.54 ms clean | step   71.01 ms profiled, GPU 114.66 ms (161.5% busy),   2602 launches, malloc 0.0 free 0.0 sync 1.0/step
+       37.240 ms/step  x  82.8  Command Buffer Full
+       16.504 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       14.012 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.693 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        4.737 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        3.083 ms/step  x 162.2  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+hbm       R= 0 bs=16: tpot   83.75 ms clean | step   90.25 ms profiled, GPU 112.50 ms (124.7% busy),   3050 launches, malloc 0.0 free 0.0 sync 1.0/step
+       24.165 ms/step  x  54.5  Command Buffer Full
+       24.084 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.655 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       10.299 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.199 ms/step  x 174.3  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        9.061 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+ours      R=36 bs= 1: tpot   44.62 ms clean | step   70.97 ms profiled, GPU 115.53 ms (162.8% busy),   2604 launches, malloc 0.0 free 0.0 sync 1.0/step
+       38.014 ms/step  x  84.6  Command Buffer Full
+       16.533 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       14.045 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.717 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        4.738 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+        3.083 ms/step  x 162.2  void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::Tenso
+ours      R=36 bs=16: tpot   43.78 ms clean | step   90.76 ms profiled, GPU 112.51 ms (124.0% busy),   3050 launches, malloc 0.0 free 0.0 sync 1.0/step
+       24.323 ms/step  x  54.4  Command Buffer Full
+       24.060 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       10.632 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       10.273 ms/step  x  72.0  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.178 ms/step  x 174.3  void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespa
+        9.059 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+ours      R= 0 bs= 1: tpot   76.99 ms clean | step   82.95 ms profiled, GPU 106.05 ms (127.9% busy),   2770 launches, malloc 0.2 free 0.0 sync 1.0/step
+       21.297 ms/step  x  81.7  Command Buffer Full
+       16.482 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       13.947 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.663 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        6.625 ms/step  x  72.4  Memcpy HtoD (Pinned -> Device)
+        4.726 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+ours      R= 0 bs=16: tpot   50.49 ms clean | step  104.15 ms profiled, GPU 104.53 ms (100.4% busy),   3207 launches, malloc 0.1 free 0.0 sync 1.0/step
+       23.990 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       13.925 ms/step  x  52.5  Command Buffer Full
+       12.861 ms/step  x 154.3  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       10.588 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+        9.009 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        6.607 ms/step  x  72.3  Memcpy HtoD (Pinned -> Device)
+USDT:2026-11-15 03:46:41 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:46:44 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+USDT:2026-11-15 03:46:55 7988:7988 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-11-15 03:46:59 7988:7988 SyncActivityProfilerHandler.cpp:59] profiler_stop
+zerocopy  R= 0 bs= 1: tpot   48.42 ms clean | step   78.73 ms profiled, GPU 248.76 ms (315.9% busy),   2699 launches, malloc 0.0 free 0.0 sync 1.0/step
+      160.483 ms/step  x   4.0  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       24.446 ms/step  x  99.1  Command Buffer Full
+       14.457 ms/step  x   8.0  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+       12.078 ms/step  x  12.0  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        6.585 ms/step  x  36.0  cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_35_16x128x128_1x4x1_cga1x1
+        4.407 ms/step  x 248.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+zerocopy  R= 0 bs=16: tpot   48.11 ms clean | step   98.70 ms profiled, GPU 208.30 ms (211.0% busy),   3136 launches, malloc 0.0 free 0.0 sync 1.0/step
+      118.079 ms/step  x  43.6  cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_7_64x128x128_4x1x1_cga1x1
+       30.647 ms/step  x 149.1  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+       16.219 ms/step  x  63.7  Command Buffer Full
+        9.299 ms/step  x   5.1  nvjet_sm90_tst_192x208_64x4_2x1_v_bz_coopB_TNT
+        7.980 ms/step  x   7.8  nvjet_sm90_tst_256x152_64x4_1x2_h_bz_coopA_TNT
+        3.418 ms/step  x 350.9  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native:
+=== profile ok in 2 min
+
+=== zc16  Sun 03:47 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6375.97it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6355.84it/s]
+4 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    14.3 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    14.2 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    17.8 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    23.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    15.9 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    13.7 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.0 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    30.6 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    12.7 tok/s acc=1.00 h2d/step=  2355.6MB peak=21.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    12.7 tok/s acc=1.00 h2d/step=  2421.4MB peak=21.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    15.4 tok/s acc=1.00 h2d/step=  2374.4MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    20.1 tok/s acc=1.00 h2d/step=  2368.2MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    29.4 tok/s acc=1.83 h2d/step=  2356.0MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    25.4 tok/s acc=1.58 h2d/step=  2422.3MB peak=25.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    28.7 tok/s acc=1.80 h2d/step=  2373.0MB peak=25.4GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    39.1 tok/s acc=2.45 h2d/step=  2367.9MB peak=25.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    21.3 tok/s acc=1.00 h2d/step=  1178.1MB peak=21.4GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    21.3 tok/s acc=1.00 h2d/step=  1211.0MB peak=22.6GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    21.1 tok/s acc=1.00 h2d/step=  1187.4MB peak=21.2GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    21.2 tok/s acc=1.00 h2d/step=  1184.3MB peak=22.3GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    31.1 tok/s acc=1.83 h2d/step=  1178.5MB peak=27.6GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    26.7 tok/s acc=1.58 h2d/step=  1211.6MB peak=26.6GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    30.3 tok/s acc=1.80 h2d/step=  1187.0MB peak=27.6GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    41.2 tok/s acc=2.45 h2d/step=  1184.6MB peak=28.7GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    22.2 tok/s acc=1.00 h2d/step=  2378.5MB peak=22.3GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    22.3 tok/s acc=1.00 h2d/step=  2444.6MB peak=22.4GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    22.3 tok/s acc=1.00 h2d/step=  2397.3MB peak=22.4GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    22.3 tok/s acc=1.00 h2d/step=  2391.1MB peak=22.4GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    27.4 tok/s acc=1.83 h2d/step=  2388.1MB peak=26.5GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    23.2 tok/s acc=1.58 h2d/step=  2452.8MB peak=26.7GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    26.3 tok/s acc=1.80 h2d/step=  2404.9MB peak=26.6GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    36.3 tok/s acc=2.45 h2d/step=  2405.5MB peak=26.5GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    22.4 tok/s acc=1.00 h2d/step=  1189.3MB peak=22.4GiB match=False
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    22.4 tok/s acc=1.00 h2d/step=  1222.3MB peak=23.6GiB match=False
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    22.3 tok/s acc=1.00 h2d/step=  1198.7MB peak=22.4GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    22.4 tok/s acc=1.00 h2d/step=  1195.6MB peak=23.5GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    29.3 tok/s acc=1.83 h2d/step=  1194.1MB peak=28.8GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    25.0 tok/s acc=1.58 h2d/step=  1226.4MB peak=29.0GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    28.3 tok/s acc=1.80 h2d/step=  1202.4MB peak=28.8GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    39.0 tok/s acc=2.45 h2d/step=  1202.8MB peak=29.9GiB match=True
+=== zc16 ok in 8 min
+
+=== zc8  Sun 03:56 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6478.58it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6596.25it/s]
+4 prompts, lengths 7242-8064, max_len=8368, target KV 144 KiB/token -> 1.15 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx=  7916    14.8 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx=  7242    14.7 tok/s acc=1.00 h2d/step=     0.0MB peak=19.0GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx=  8000    15.4 tok/s acc=1.00 h2d/step=     0.0MB peak=19.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx=  8064    21.0 tok/s acc=1.00 h2d/step=     0.0MB peak=19.2GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx=  7916    20.1 tok/s acc=2.23 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx=  7242    14.3 tok/s acc=1.59 h2d/step=     0.0MB peak=20.8GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx=  8000    21.4 tok/s acc=2.36 h2d/step=     0.0MB peak=21.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx=  8064    17.7 tok/s acc=1.70 h2d/step=     0.0MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx=  7916    13.1 tok/s acc=1.00 h2d/step=  1162.7MB peak=19.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx=  7242    13.1 tok/s acc=1.00 h2d/step=  1072.8MB peak=19.1GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx=  8000    13.7 tok/s acc=1.00 h2d/step=  1184.6MB peak=19.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx=  8064    18.1 tok/s acc=1.00 h2d/step=  1194.0MB peak=19.3GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx=  7916    37.0 tok/s acc=2.23 h2d/step=  1163.1MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx=  7242    26.5 tok/s acc=1.59 h2d/step=  1072.8MB peak=21.0GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx=  8000    39.1 tok/s acc=2.36 h2d/step=  1184.3MB peak=21.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx=  8064    28.1 tok/s acc=1.70 h2d/step=  1195.5MB peak=21.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx=  7916    22.0 tok/s acc=1.00 h2d/step=   581.6MB peak=19.3GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx=  7242    21.9 tok/s acc=1.00 h2d/step=   536.5MB peak=19.7GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx=  8000    21.8 tok/s acc=1.00 h2d/step=   592.4MB peak=19.2GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx=  8064    21.9 tok/s acc=1.00 h2d/step=   597.1MB peak=19.8GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx=  7916    38.9 tok/s acc=2.23 h2d/step=   582.2MB peak=22.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx=  7242    27.8 tok/s acc=1.59 h2d/step=   536.6MB peak=21.5GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx=  8000    41.3 tok/s acc=2.36 h2d/step=   592.5MB peak=22.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx=  8064    29.8 tok/s acc=1.70 h2d/step=   598.0MB peak=23.0GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx=  7916    22.8 tok/s acc=1.00 h2d/step=  1185.9MB peak=19.8GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx=  7242    22.8 tok/s acc=1.00 h2d/step=  1090.9MB peak=19.6GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx=  8000    22.9 tok/s acc=1.00 h2d/step=  1203.1MB peak=19.8GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx=  8064    22.9 tok/s acc=1.00 h2d/step=  1212.6MB peak=19.9GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx=  7916    40.5 tok/s acc=2.23 h2d/step=  1199.4MB peak=21.9GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx=  7242    28.8 tok/s acc=1.59 h2d/step=  1095.4MB peak=21.6GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx=  8000    42.8 tok/s acc=2.36 h2d/step=  1210.7MB peak=22.0GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx=  8064    30.8 tok/s acc=1.70 h2d/step=  1219.2MB peak=22.0GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx=  7916    23.3 tok/s acc=1.00 h2d/step=   593.0MB peak=19.9GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx=  7242    23.2 tok/s acc=1.00 h2d/step=   545.5MB peak=20.3GiB match=False
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx=  8000    23.3 tok/s acc=1.00 h2d/step=   601.6MB peak=19.9GiB match=False
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx=  8064    23.2 tok/s acc=1.00 h2d/step=   606.3MB peak=20.5GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx=  7916    41.1 tok/s acc=2.23 h2d/step=   599.7MB peak=23.1GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx=  7242    29.2 tok/s acc=1.59 h2d/step=   547.7MB peak=22.7GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx=  8000    43.2 tok/s acc=2.36 h2d/step=   605.3MB peak=23.0GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx=  8064    31.2 tok/s acc=1.70 h2d/step=   609.6MB peak=23.6GiB match=True
+=== zc8 ok in 7 min
+
+=== layers  Sun 04:03 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6409.55it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6293.35it/s]
+4 prompts, 36 layers, attention implementation sdpa, device cuda:0
+bs= 1 p0 ctx=  7916 steps= 118 step=  67.62 ms  layers=  65.67 ms  attn=  49.11 ms (74.8% of layer time)
+bs= 1 p1 ctx=  7242 steps= 255 step=  68.73 ms  layers=  66.54 ms  attn=  49.85 ms (74.9% of layer time)
+bs= 1 p2 ctx=  8000 steps= 255 step=  64.34 ms  layers=  62.17 ms  attn=  45.72 ms (73.5% of layer time)
+bs= 1 p3 ctx=  8064 steps= 255 step=  47.41 ms  layers=  45.28 ms  attn=  29.59 ms (65.4% of layer time)
+bs=16 p0 ctx=  7916 steps=  53 step= 110.01 ms  layers=  74.40 ms  attn=  65.61 ms (88.2% of layer time)
+bs=16 p1 ctx=  7242 steps= 160 step= 110.47 ms  layers=  74.58 ms  attn=  65.26 ms (87.5% of layer time)
+bs=16 p2 ctx=  8000 steps= 108 step= 108.39 ms  layers=  73.42 ms  attn=  64.93 ms (88.4% of layer time)
+bs=16 p3 ctx=  8064 steps= 150 step=  94.14 ms  layers=  66.02 ms  attn=  57.70 ms (87.4% of layer time)
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6719.56it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6508.19it/s]
+4 prompts, 36 layers, attention implementation sdpa, device cuda:0
+bs= 1 p0 ctx= 15940 steps= 255 step=  70.05 ms  layers=  67.82 ms  attn=  50.62 ms (74.6% of layer time)
+bs= 1 p1 ctx= 16386 steps= 255 step=  69.50 ms  layers=  67.30 ms  attn=  50.09 ms (74.4% of layer time)
+bs= 1 p2 ctx= 16067 steps= 255 step=  55.27 ms  layers=  53.09 ms  attn=  36.58 ms (68.9% of layer time)
+bs= 1 p3 ctx= 16025 steps= 255 step=  42.77 ms  layers=  40.59 ms  attn=  24.37 ms (60.0% of layer time)
+bs=16 p0 ctx= 15940 steps= 139 step= 113.60 ms  layers=  78.02 ms  attn=  71.53 ms (91.7% of layer time)
+bs=16 p1 ctx= 16386 steps= 161 step= 113.90 ms  layers=  78.44 ms  attn=  71.95 ms (91.7% of layer time)
+bs=16 p2 ctx= 16067 steps= 142 step=  98.47 ms  layers=  70.56 ms  attn=  64.11 ms (90.9% of layer time)
+bs=16 p3 ctx= 16025 steps= 104 step=  79.09 ms  layers=  60.26 ms  attn=  53.85 ms (89.4% of layer time)
+=== layers ok in 4 min
+
+=== evict  Sun 04:07 ===
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6748.96it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6485.81it/s]
+4 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    15.3 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    15.3 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    19.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    26.6 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.5 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.2 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.6 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    32.0 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    13.6 tok/s acc=1.00 h2d/step=  2063.0MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    13.6 tok/s acc=1.00 h2d/step=  2128.8MB peak=21.6GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    16.9 tok/s acc=1.00 h2d/step=  2081.7MB peak=21.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    22.6 tok/s acc=1.00 h2d/step=  2075.5MB peak=21.5GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    32.9 tok/s acc=1.83 h2d/step=  2063.3MB peak=26.0GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    28.1 tok/s acc=1.58 h2d/step=  2129.7MB peak=26.1GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    31.9 tok/s acc=1.80 h2d/step=  2080.3MB peak=26.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    43.8 tok/s acc=2.45 h2d/step=  2075.2MB peak=26.5GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    25.1 tok/s acc=1.00 h2d/step=  2378.5MB peak=21.1GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    24.9 tok/s acc=1.00 h2d/step=  2444.6MB peak=21.5GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    24.8 tok/s acc=1.00 h2d/step=  2397.3MB peak=21.7GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    24.6 tok/s acc=1.00 h2d/step=  2391.1MB peak=21.4GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    27.1 tok/s acc=1.83 h2d/step=  2388.1MB peak=25.8GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    23.0 tok/s acc=1.58 h2d/step=  2452.8MB peak=26.3GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    26.0 tok/s acc=1.80 h2d/step=  2404.9MB peak=25.8GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 2048, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    35.9 tok/s acc=2.45 h2d/step=  2405.5MB peak=26.1GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6697.91it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6513.77it/s]
+4 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    15.4 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    15.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    19.7 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    27.0 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.9 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.4 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.8 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    32.2 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    13.8 tok/s acc=1.00 h2d/step=  1156.8MB peak=21.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    13.8 tok/s acc=1.00 h2d/step=  1222.6MB peak=22.4GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    17.0 tok/s acc=1.00 h2d/step=  1175.6MB peak=22.1GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    22.4 tok/s acc=1.00 h2d/step=  1169.4MB peak=22.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    31.8 tok/s acc=1.83 h2d/step=  1157.0MB peak=27.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    27.3 tok/s acc=1.58 h2d/step=  1223.4MB peak=27.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    30.8 tok/s acc=1.80 h2d/step=  1174.0MB peak=28.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    42.6 tok/s acc=2.45 h2d/step=  1168.7MB peak=29.9GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 15940    24.6 tok/s acc=1.00 h2d/step=  2378.5MB peak=21.1GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 16386    24.8 tok/s acc=1.00 h2d/step=  2444.6MB peak=22.3GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 16067    24.8 tok/s acc=1.00 h2d/step=  2397.3MB peak=23.4GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p3 ctx= 16025    24.8 tok/s acc=1.00 h2d/step=  2391.1MB peak=22.2GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 15940    25.1 tok/s acc=1.83 h2d/step=  2388.1MB peak=27.5GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 16386    21.3 tok/s acc=1.58 h2d/step=  2452.8MB peak=28.9GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 16067    24.1 tok/s acc=1.80 h2d/step=  2404.9MB peak=28.7GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 8192, "flush_chunk": 64, "resident_mode": "first"} bs=16 p3 ctx= 16025    33.3 tok/s acc=2.45 h2d/step=  2405.5MB peak=28.6GiB match=True
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6334.90it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6350.20it/s]
+4 prompts, lengths 15940-16386, max_len=16690, target KV 144 KiB/token -> 2.29 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 15940    14.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 16386    14.9 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 16067    18.7 tok/s acc=1.00 h2d/step=     0.0MB peak=21.1GiB match=True
+hbm        {}                                                                     bs= 1 p3 ctx= 16025    25.5 tok/s acc=1.00 h2d/step=     0.0MB peak=21.0GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 15940    16.4 tok/s acc=1.83 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 16386    14.0 tok/s acc=1.58 h2d/step=     0.0MB peak=25.4GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 16067    18.4 tok/s acc=1.80 h2d/step=     0.0MB peak=25.2GiB match=True
+hbm        {}                                                                     bs=16 p3 ctx= 16025    31.5 tok/s acc=2.45 h2d/step=     0.0MB peak=25.2GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p0 ctx= 15940    13.9 tok/s acc=1.00 h2d/step=  1178.1MB peak=21.2GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p1 ctx= 16386    13.9 tok/s acc=1.00 h2d/step=  1211.0MB peak=22.4GiB match=False
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p2 ctx= 16067    17.2 tok/s acc=1.00 h2d/step=  1187.4MB peak=23.5GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p3 ctx= 16025    22.5 tok/s acc=1.00 h2d/step=  1184.3MB peak=21.4GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p0 ctx= 15940    32.0 tok/s acc=1.83 h2d/step=  1178.5MB peak=26.5GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p1 ctx= 16386    27.5 tok/s acc=1.58 h2d/step=  1211.6MB peak=27.8GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p2 ctx= 16067    30.9 tok/s acc=1.80 h2d/step=  1187.0MB peak=26.5GiB match=True
+ours       {"resident_layers": 18, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p3 ctx= 16025    42.4 tok/s acc=2.45 h2d/step=  1184.6MB peak=27.6GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p0 ctx= 15940    23.6 tok/s acc=1.00 h2d/step=  1189.3MB peak=21.1GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p1 ctx= 16386    23.7 tok/s acc=1.00 h2d/step=  1222.3MB peak=22.3GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p2 ctx= 16067    23.8 tok/s acc=1.00 h2d/step=  1198.7MB peak=23.3GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs= 1 p3 ctx= 16025    23.7 tok/s acc=1.00 h2d/step=  1195.6MB peak=24.0GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p0 ctx= 15940    30.5 tok/s acc=1.83 h2d/step=  1194.1MB peak=27.5GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p1 ctx= 16386    25.8 tok/s acc=1.58 h2d/step=  1226.4MB peak=28.8GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p2 ctx= 16067    29.1 tok/s acc=1.80 h2d/step=  1202.4MB peak=29.1GiB match=True
+zerocopy   {"resident_layers": 18, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "last"} bs=16 p3 ctx= 16025    40.2 tok/s acc=2.45 h2d/step=  1202.8MB peak=28.6GiB match=True
+=== evict ok in 16 min
+
+=== zc32  Sun 04:23 ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 6431.60it/s]
+Loading weights:   0%|          | 0/58 [00:00<?, ?it/s]Loading weights: 100%|██████████| 58/58 [00:00<00:00, 6817.52it/s]
+Generating test split:   0%|          | 0/1536 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1536/1536 [00:00<00:00, 11773.05 examples/s]Generating test split: 100%|██████████| 1536/1536 [00:00<00:00, 11675.51 examples/s]
+3 prompts, lengths 32168-32712, max_len=33016, target KV 144 KiB/token -> 4.53 GiB at max_len
+hbm        {}                                                                     bs= 1 p0 ctx= 32712    15.8 tok/s acc=1.00 h2d/step=     0.0MB peak=25.0GiB match=True
+hbm        {}                                                                     bs= 1 p1 ctx= 32410    15.7 tok/s acc=1.00 h2d/step=     0.0MB peak=24.9GiB match=True
+hbm        {}                                                                     bs= 1 p2 ctx= 32168    16.1 tok/s acc=1.00 h2d/step=     0.0MB peak=24.9GiB match=True
+hbm        {}                                                                     bs=16 p0 ctx= 32712    12.8 tok/s acc=1.85 h2d/step=     0.0MB peak=33.5GiB match=True
+hbm        {}                                                                     bs=16 p1 ctx= 32410    11.1 tok/s acc=1.59 h2d/step=     0.0MB peak=33.3GiB match=True
+hbm        {}                                                                     bs=16 p2 ctx= 32168    12.3 tok/s acc=1.76 h2d/step=     0.0MB peak=33.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 32712    14.1 tok/s acc=1.00 h2d/step=  4829.3MB peak=25.3GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 32410    14.1 tok/s acc=1.00 h2d/step=  4784.8MB peak=25.2GiB match=False
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 32168    14.3 tok/s acc=1.00 h2d/step=  4749.1MB peak=25.2GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 32712    23.0 tok/s acc=1.85 h2d/step=  4829.6MB peak=33.8GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 32410    20.1 tok/s acc=1.59 h2d/step=  4784.5MB peak=33.6GiB match=True
+ours       {"resident_layers": 0, "num_slots": 2, "phase_prefetch": true, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 32168    22.4 tok/s acc=1.76 h2d/step=  4748.6MB peak=33.5GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p0 ctx= 32712    25.5 tok/s acc=1.00 h2d/step=  4861.4MB peak=25.0GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p1 ctx= 32410    25.6 tok/s acc=1.00 h2d/step=  4816.7MB peak=25.0GiB match=False
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs= 1 p2 ctx= 32168    25.8 tok/s acc=1.00 h2d/step=  4780.8MB peak=24.9GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p0 ctx= 32712    16.3 tok/s acc=1.85 h2d/step=  4878.8MB peak=33.5GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p1 ctx= 32410    14.2 tok/s acc=1.59 h2d/step=  4828.8MB peak=33.4GiB match=True
+zerocopy   {"resident_layers": 0, "tail_keep": 64, "flush_chunk": 64, "resident_mode": "first"} bs=16 p2 ctx= 32168    15.9 tok/s acc=1.76 h2d/step=  4795.8MB peak=33.3GiB match=True
+=== zc32 ok in 6 min
+
+=== summarize  Sun 04:29 ===
+wrote results/followups_summary.md
+=== summarize ok in 0 min
+All stages attempted, rc=0. Log: logs/followups_1115_0345.log
