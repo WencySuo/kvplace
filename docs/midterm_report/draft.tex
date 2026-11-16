@@ -110,7 +110,16 @@ GH200    & Pie, DirectKV & \textbf{This work} \\
 \section{Design}
 \label{sec:design}
 
-\textbf{Speculation-aware KV split.} Following SpecStream's commit-aware tiering~\citep{li2026specstream}, verified history lives in pinned CPU memory, while recent tokens and the current speculative block stay on the GPU, so rejected guesses are discarded without crossing the link. A knob keeps the first $R$ of the model's $L=36$ layers entirely on the GPU, which sets the offloaded fraction $f$. Offloaded layers are fetched one at a time on a separate copy stream into a ring of two staging buffers, so a layer's fetch can overlap computation of the layers before it. The manager plugs into DFlash's Transformers implementation~\citep{wolf2020transformers} without modifying DFlash.
+\begin{figure*}[!t]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/fig_schemes.pdf}
+\caption{KV placement in the manager and the four schemes measured. (a)~Each layer's cache is a verified prefix in pinned host memory, a tail of the newest accepted tokens in HBM, and the drafted block in HBM; rejected drafts are cropped on the GPU, and accepted tokens leave the tail for the host in chunks. (b)~Everything resident, the baseline. (c)~Per-layer placement: $R$ layers stay in HBM and the rest fetch their prefix each step through two staging slots on a copy stream, two layers ahead of the compute (\cref{sec:eval,sec:gh200}). (d)~Per-token placement: every layer keeps a window of recent tokens in HBM and fetches the rest (\cref{sec:gh200}, eviction). (e)~Zero-copy: the prefix is GPU-mapped and the attention kernel reads it from host memory during its own execution, with no staging and no lookahead (\cref{sec:gh200}).}
+\label{fig:schemes}
+\end{center}
+\vskip -0.2in
+\end{figure*}
+
+\textbf{Speculation-aware KV split.} Following SpecStream's commit-aware tiering~\citep{li2026specstream}, verified history lives in pinned CPU memory, while recent tokens and the current speculative block stay on the GPU, so rejected guesses are discarded without crossing the link (\cref{fig:schemes}a). A knob keeps the first $R$ of the model's $L=36$ layers entirely on the GPU, which sets the offloaded fraction $f$ (\cref{fig:schemes}c). Offloaded layers are fetched one at a time on a separate copy stream into a ring of two staging buffers, so a layer's fetch can overlap computation of the layers before it. The manager plugs into DFlash's Transformers implementation~\citep{wolf2020transformers} without modifying DFlash.
 
 \textbf{Pipeline model.} Offloading cost comes down to two per-layer times: $t$, the time to fetch one layer's KV over the link, and $c$, the time the GPU spends computing one layer,
 \begin{equation}
@@ -124,7 +133,7 @@ Here $nb$ is one sequence's KV cache in bytes ($n$ tokens of $b$ bytes each), so
 c_{\text{zc}} = c_{\text{other}} + \max\!\left(c_{\text{attn}},\, \frac{t}{\eta}\right),
 \label{eq:zerocopy}
 \end{equation}
-where $c_{\text{attn}}$ and $c_{\text{other}}$ split each measured layer time between attention and everything else, and $\eta$ is the fraction of link bandwidth that loads issued from inside a kernel achieve. We measured $\eta$ on the GH200 (\cref{sec:gh200}) and implemented the branch as a fourth arm of the manager, which keeps offloaded layers in GPU-mapped pinned memory and hands the attention call a view of it.
+where $c_{\text{attn}}$ and $c_{\text{other}}$ split each measured layer time between attention and everything else, and $\eta$ is the fraction of link bandwidth that loads issued from inside a kernel achieve. We measured $\eta$ on the GH200 (\cref{sec:gh200}) and implemented the branch as a fourth arm of the manager, which keeps offloaded layers in GPU-mapped pinned memory and hands the attention call a view of it (\cref{fig:schemes}e).
 
 \textbf{Offload budget.} A mode's budget is the largest offloaded fraction at which its time per generated token stays within 5\% of ordinary decoding with the whole cache on the GPU.
 
